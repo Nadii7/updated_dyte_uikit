@@ -201,9 +201,9 @@
     },
     {
       "name": "flutter_lints",
-      "rootUri": "file:///Users/nadii7/.pub-cache/hosted/pub.dev/flutter_lints-2.0.3",
+      "rootUri": "file:///Users/nadii7/.pub-cache/hosted/pub.dev/flutter_lints-5.0.0",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.5"
     },
     {
       "name": "flutter_localizations",
@@ -249,7 +249,7 @@
     },
     {
       "name": "get_it",
-      "rootUri": "file:///Users/nadii7/.pub-cache/hosted/pub.dev/get_it-7.7.0",
+      "rootUri": "file:///Users/nadii7/.pub-cache/hosted/pub.dev/get_it-8.0.3",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -327,9 +327,9 @@
     },
     {
       "name": "lints",
-      "rootUri": "file:///Users/nadii7/.pub-cache/hosted/pub.dev/lints-2.1.1",
+      "rootUri": "file:///Users/nadii7/.pub-cache/hosted/pub.dev/lints-5.1.1",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "3.6"
     },
     {
       "name": "logging",
@@ -542,7 +542,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2025-03-10T18:03:54.966375Z",
+  "generated": "2025-03-10T18:12:25.742539Z",
   "generator": "pub",
   "generatorVersion": "3.7.0",
   "flutterRoot": "file:///Users/nadii7/Development/flutter",

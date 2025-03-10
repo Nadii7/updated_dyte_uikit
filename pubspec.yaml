@@ -1,29 +1,37 @@
-name: dyte_uikit
-description: Dyte's UI SDK to integrate video-audio to your app
 version: 0.9.5
+name: dyte_uikit
 homepage: https://docs.dyte.io/flutter
+description: Dyte's UI SDK to integrate video-audio to your app
+
 environment:
   sdk: ">=2.18.0 <4.0.0"
   flutter: ">=1.17.0"
+
 dependencies:
   flutter:
     sdk: flutter
-  dyte_core: 0.4.5
-  get_it: ^7.2.0
-  flutter_riverpod: ^2.1.3
-  file_picker: ^9.0.2
-  dyte_icons: 0.0.3
+
   flutter_localizations:
     sdk: flutter
+
+  get_it: ^8.0.3
+  dyte_core: 0.4.5
+  dyte_icons: 0.0.3
+  file_picker: ^9.0.2
+  flutter_riverpod: ^2.6.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
-  build_runner: ^2.3.3
+
+  build_runner: ^2.4.15
+  flutter_lints: ^5.0.0
+
 flutter:
   assets:
     - pubspec.yaml
     - assets/images/
+
   fonts:
     - family: Inter
       fonts:
