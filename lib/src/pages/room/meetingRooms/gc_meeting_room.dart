@@ -13,10 +13,12 @@ const appbarHeight = 56.0;
 
 class DyteGCMeetingRoom extends ConsumerWidget {
   final Function()? onClose;
+  final String remainingTime;
 
   const DyteGCMeetingRoom({
     super.key,
     required this.onClose,
+    required this.remainingTime,
   });
 
   @override
@@ -34,14 +36,17 @@ class DyteGCMeetingRoom extends ConsumerWidget {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        appBar: DyteAppBars.gc(),
+        appBar: DyteAppBars.gc(remainingTime: remainingTime),
         body: SafeArea(
           child: ref.watch(tabNotifierProvider).isEmpty ||
                   dyteMobileClient.meta.roomType == DyteRoomType.livestream
               ? const ActiveParticipantsWidget()
               : const DytePageViewWidget(),
         ),
-        bottomNavigationBar: DyteControlBar.gc(onClose: onClose),
+        bottomNavigationBar: DyteControlBar.gc(
+          onClose: onClose,
+          remainingTime: remainingTime,
+        ),
       ),
     );
   }

@@ -22,9 +22,11 @@ import '../../setup/settings_page.dart';
 
 class DyteMenuWidget extends ConsumerWidget {
   final bool canLivestream;
+  final String remainingTime;
   const DyteMenuWidget({
     super.key,
     this.canLivestream = false,
+    required this.remainingTime,
   });
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -51,8 +53,10 @@ class DyteMenuWidget extends ConsumerWidget {
           title: DyteText(DyteStrings.polls),
           onTap: () {
             DyteRouter.of(context).pop();
-            DyteRouter.of(context)
-                .push(const DytePollsScreen(), pageName: RouteNames.polls);
+            DyteRouter.of(context).push(
+              pageName: RouteNames.polls,
+              DytePollsScreen(remainingTime: remainingTime),
+            );
             ref.read(unreadPollsNotifier.notifier).markAllAsRead(
                   ref.read(pollsListNotifier).length,
                 );
@@ -71,8 +75,8 @@ class DyteMenuWidget extends ConsumerWidget {
                   ref.read(chatListNotifier).length,
                 );
             DyteRouter.of(context).push(
-              const ChatsPage(),
               pageName: RouteNames.chats,
+              ChatsPage(remainingTime: remainingTime),
             );
           },
           trailing: UnreadCountWidget(
@@ -85,8 +89,8 @@ class DyteMenuWidget extends ConsumerWidget {
         onTap: () {
           DyteRouter.of(context).pop();
           DyteRouter.of(context).push(
-            const DyteParticipantsPage(),
             pageName: RouteNames.participants,
+            DyteParticipantsPage(remainingTime: remainingTime),
           );
         },
         trailing: UnreadCountWidget(
@@ -107,7 +111,7 @@ class DyteMenuWidget extends ConsumerWidget {
           onTap: () {
             DyteRouter.of(context).pop();
             DyteRouter.of(context).push(
-              const DytePluginsScreen(),
+              DytePluginsScreen(remainingTime: remainingTime),
             );
           },
         ),
@@ -121,7 +125,7 @@ class DyteMenuWidget extends ConsumerWidget {
         onTap: () {
           DyteRouter.of(context).pop();
           DyteRouter.of(context).push(
-            SetupSettingsPage(),
+            SetupSettingsPage(remainingTime: remainingTime),
             pageName: RouteNames.settings,
           );
         },

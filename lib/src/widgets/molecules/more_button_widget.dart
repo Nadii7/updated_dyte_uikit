@@ -10,12 +10,15 @@ import '../atoms/dyte_bottom_nav_button.dart';
 import '../atoms/dyte_text.dart';
 
 class MoreButtonWidget extends ConsumerWidget {
-  final bool canLivestream;
   final bool showLabel;
+  final bool canLivestream;
+  final String remainingTime;
+
   const MoreButtonWidget({
     super.key,
-    this.canLivestream = false,
     this.showLabel = false,
+    this.canLivestream = false,
+    required this.remainingTime,
   });
 
   @override
@@ -33,6 +36,7 @@ class MoreButtonWidget extends ConsumerWidget {
                 await showModalBottomSheet(
                   context: context,
                   builder: (context) => DyteMenuWidget(
+                    remainingTime: remainingTime,
                     canLivestream: canLivestream,
                   ),
                 );

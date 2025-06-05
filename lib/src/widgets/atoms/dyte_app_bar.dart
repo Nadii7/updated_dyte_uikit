@@ -15,6 +15,7 @@ import '../../pages/room/widgets/recorder_widget.dart';
 import '../../pages/room/widgets/switch_camera_widget.dart';
 
 class DyteAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final String remainingTime;
   final Icon? leadingIcon;
   final VoidCallback? onPressed;
   final Widget? title;
@@ -36,6 +37,7 @@ class DyteAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.bottom,
     this.titleSpacing = 10,
     this.title,
+    required this.remainingTime,
   });
 
   @override
@@ -49,9 +51,9 @@ class DyteAppBar extends StatelessWidget implements PreferredSizeWidget {
       titleSpacing: titleSpacing,
       leading: hasLeading
           ? DyteIconButton(
-              backgroundColor: theme.colorScheme.primaryContainer,
-              icon: leadingIcon ?? const Icon(DyteIcons.back),
               onPressed: onPressed ?? () {},
+              icon: leadingIcon ?? const Icon(DyteIcons.back),
+              backgroundColor: theme.colorScheme.primaryContainer,
             )
           : null,
       title: title,
@@ -93,7 +95,7 @@ class DyteAppBar extends StatelessWidget implements PreferredSizeWidget {
                 .copyWith(color: textColorSwatch.shade700),
           ),
           hspace1,
-          const DyteMeetingTimerWidget()
+          DyteMeetingTimerWidget(remainingTime: remainingTime)
         ],
       ]),
     );
@@ -104,9 +106,12 @@ class DyteAppBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class _GCAppBar extends DyteAppBar {
+  const _GCAppBar({required super.remainingTime});
+
   Widget _buildAppBar(BuildContext context) {
     final theme = AppTheme(globalDesignToken.colorToken).theme;
     return DyteAppBar(
+      remainingTime: remainingTime,
       backgroundColor: theme.colorScheme.surface,
       hasLeading: false,
       centerTitle: false,
@@ -125,11 +130,14 @@ class _GCAppBar extends DyteAppBar {
 }
 
 class _WebinarAppBar extends DyteAppBar {
+  const _WebinarAppBar({required super.remainingTime});
+
   Widget _buildAppBar(BuildContext context) {
     final theme = AppTheme(globalDesignToken.colorToken).theme;
     return DyteAppBar(
-      backgroundColor: theme.colorScheme.surface,
       hasLeading: false,
+      remainingTime: remainingTime,
+      backgroundColor: theme.colorScheme.surface,
       title: _buildAppBarTitle(context),
       actions: const [
         RecorderWidget(),
@@ -145,9 +153,12 @@ class _WebinarAppBar extends DyteAppBar {
 }
 
 class _LivestreamAppBar extends DyteAppBar {
+  const _LivestreamAppBar({required super.remainingTime});
+
   Widget _buildAppBar(BuildContext context) {
     final theme = AppTheme(globalDesignToken.colorToken).theme;
     return DyteAppBar(
+      remainingTime: remainingTime,
       backgroundColor: theme.colorScheme.surface,
       hasLeading: false,
       title: _buildAppBarTitle(context),
@@ -170,15 +181,15 @@ class _LivestreamAppBar extends DyteAppBar {
 class DyteAppBars {
   DyteAppBars._();
 
-  static DyteAppBar gc() {
-    return _GCAppBar();
+  static DyteAppBar gc({required String remainingTime}) {
+    return _GCAppBar(remainingTime: remainingTime);
   }
 
-  static DyteAppBar webinar() {
-    return _WebinarAppBar();
+  static DyteAppBar webinar({required String remainingTime}) {
+    return _WebinarAppBar(remainingTime: remainingTime);
   }
 
-  static DyteAppBar lvs() {
-    return _LivestreamAppBar();
+  static DyteAppBar lvs({required String remainingTime}) {
+    return _LivestreamAppBar(remainingTime: remainingTime);
   }
 }

@@ -6,18 +6,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DyteMeetingTimerWidget extends ConsumerWidget {
-  const DyteMeetingTimerWidget({super.key});
+  final String remainingTime;
+  const DyteMeetingTimerWidget({super.key, required this.remainingTime});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = AppTheme(globalDesignToken.colorToken).theme;
     final meetingDuration = ref.watch(meetingTimeProvider);
     if (meetingDuration != null) {
-      final hourCount = meetingDuration.inHours > 0
-          ? "${meetingDuration.inHours.toString().padLeft(2, '0')}:"
-          : "";
+      // final hourCount = meetingDuration.inHours > 0
+      //     ? "${meetingDuration.inHours.toString().padLeft(2, '0')}:"
+      //     : "";
       return DyteText(
-        "$hourCount${meetingDuration.inMinutes.remainder(60).toString().padLeft(2, '0')}:${meetingDuration.inSeconds.remainder(60).toString().padLeft(2, '0')}",
+        remainingTime,
+        // "$hourCount${meetingDuration.inMinutes.remainder(60).toString().padLeft(2, '0')}:${meetingDuration.inSeconds.remainder(60).toString().padLeft(2, '0')}",
         // meetingDuration.toString(),
         dyteTextStyle: theme.textTheme.bodyLarge,
       );

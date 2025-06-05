@@ -8,7 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DyteChatIconWidget extends ConsumerWidget {
-  const DyteChatIconWidget({super.key});
+  final String remainingTime;
+  const DyteChatIconWidget({
+    super.key,
+    required this.remainingTime,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,7 +22,7 @@ class DyteChatIconWidget extends ConsumerWidget {
               ref.read(chatListNotifier).length,
             );
         DyteRouter.of(context).push(
-          const ChatsPage(),
+          ChatsPage(remainingTime: remainingTime),
           pageName: RouteNames.chats,
         );
       },

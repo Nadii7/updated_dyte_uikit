@@ -13,13 +13,15 @@ import '../../widgets/atoms/dyte_button.dart';
 import 'widgets/polls_viewer_widget.dart';
 
 class DytePollsScreen extends StatelessWidget {
-  const DytePollsScreen({super.key});
+  final String remainingTime;
+  const DytePollsScreen({super.key, required this.remainingTime});
 
   @override
   Widget build(BuildContext context) {
     final theme = AppTheme(globalDesignToken.colorToken).theme;
     return Scaffold(
       appBar: DyteAppBar(
+        remainingTime: remainingTime,
         title: DyteText(DyteStrings.polls),
         hasLeading: false,
         actions: [
@@ -43,7 +45,7 @@ class DytePollsScreen extends StatelessWidget {
                 height: context.adjust(48),
                 onPressed: () {
                   DyteRouter.of(context).push(
-                    const CreatePollPage(),
+                    CreatePollPage(remainingTime: remainingTime),
                   );
                 },
                 child: Row(

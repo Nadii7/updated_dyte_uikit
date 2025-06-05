@@ -7,14 +7,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DytePollsIconWidget extends ConsumerWidget {
-  const DytePollsIconWidget({super.key});
+  final String remainingTime;
+  const DytePollsIconWidget({
+    super.key,
+    required this.remainingTime,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return IconButton(
       onPressed: () {
         DyteRouter.of(context).push(
-          const DytePollsScreen(),
+          DytePollsScreen(remainingTime: remainingTime),
           pageName: RouteNames.polls,
         );
       },

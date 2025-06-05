@@ -10,9 +10,15 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 class DyteApp extends ConsumerStatefulWidget {
   final Function()? onClose;
-
+  final String remainingTime;
   final DyteMeetingInfo dyteMeetingInfo;
-  const DyteApp(this.dyteMeetingInfo, {super.key, required this.onClose});
+
+  const DyteApp(
+    this.dyteMeetingInfo, {
+    super.key,
+    required this.onClose,
+    required this.remainingTime,
+  });
   @override
   ConsumerState<DyteApp> createState() => _DyteAppState();
 }
@@ -38,7 +44,10 @@ class _DyteAppState extends ConsumerState<DyteApp> {
       ],
       theme: appTheme.theme,
       debugShowCheckedModeBanner: false,
-      home: RoomRoutePage(onClose: widget.onClose),
+      home: RoomRoutePage(
+        onClose: widget.onClose,
+        remainingTime: widget.remainingTime,
+      ),
     );
   }
 

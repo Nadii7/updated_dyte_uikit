@@ -9,13 +9,15 @@ import 'package:dyte_uikit/src/widgets/atoms/dyte_text.dart';
 import 'package:flutter/material.dart';
 
 class ChatsPage extends StatelessWidget {
-  const ChatsPage({super.key});
+  final String remainingTime;
+  const ChatsPage({super.key, required this.remainingTime});
 
   @override
   Widget build(BuildContext context) {
     final chatPermissions = dyteMobileClient.permissions.chat;
     return Scaffold(
       appBar: DyteAppBar(
+        remainingTime: remainingTime,
         backgroundColor: globalDesignToken.colorToken.backgroundColor.shade1000,
         title: DyteText(DyteStrings.chat),
         hasLeading: false,

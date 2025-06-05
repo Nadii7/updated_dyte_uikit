@@ -16,7 +16,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../widgets/atoms/dyte_icon_button.dart';
 
 class CreatePollPage extends ConsumerStatefulWidget {
-  const CreatePollPage({super.key});
+  final String remainingTime;
+  const CreatePollPage({
+    super.key,
+    required this.remainingTime,
+  });
 
   @override
   ConsumerState<CreatePollPage> createState() => _CreatePollPageState();
@@ -41,6 +45,7 @@ class _CreatePollPageState extends ConsumerState<CreatePollPage> {
     final theme = AppTheme(globalDesignToken.colorToken).theme;
     return Scaffold(
       appBar: DyteAppBar(
+        remainingTime: widget.remainingTime,
         title: DyteText(DyteStrings.createPoll),
         hasLeading: false,
         actions: [
@@ -161,11 +166,9 @@ class _CreatePollPageState extends ConsumerState<CreatePollPage> {
                       onPressed: () {
                         final options = [
                           ...mandatoryOptionsController
-                              .map((mandatoryOpt) => mandatoryOpt.text.trim())
-                              .toList(),
+                              .map((mandatoryOpt) => mandatoryOpt.text.trim()),
                           ...moreOptionsController
-                              .map((moreOpt) => moreOpt.text.trim())
-                              .toList(),
+                              .map((moreOpt) => moreOpt.text.trim()),
                         ];
                         if (questionController.text.trim().isEmpty ||
                             options.any((opt) => opt.isEmpty)) {

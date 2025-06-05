@@ -7,15 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DyteParticipantsIconWidget extends ConsumerWidget {
-  const DyteParticipantsIconWidget({super.key});
+  final String remainingTime;
+  const DyteParticipantsIconWidget({
+    super.key,
+    required this.remainingTime,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return IconButton(
       onPressed: () {
         DyteRouter.of(context).push(
-          const DyteParticipantsPage(),
           pageName: RouteNames.participants,
+          DyteParticipantsPage(remainingTime: remainingTime),
         );
       },
       icon: Icon(

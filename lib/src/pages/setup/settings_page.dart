@@ -14,8 +14,10 @@ import 'package:dyte_uikit/src/widgets/molecules/audio_devices_loader.dart';
 import 'package:dyte_uikit/src/widgets/molecules/video_devices_loader.dart';
 
 class SetupSettingsPage extends ConsumerWidget {
+  final String remainingTime;
   SetupSettingsPage({
     super.key,
+    required this.remainingTime,
   });
 
   final mediaPermissions = dyteMobileClient.permissions.media;
@@ -25,6 +27,7 @@ class SetupSettingsPage extends ConsumerWidget {
     return Scaffold(
       appBar: DyteAppBar(
         hasLeading: false,
+        remainingTime: remainingTime,
         actions: [
           IconButton(
             onPressed: Navigator.of(context).pop,
