@@ -2,7 +2,6 @@
 
 An easy-to-integrate Flutter package for all your audio-video call, and does all the heavylifting using state-of-the-art Dyte's SDK and infrastructure.
 
-
 A following example showcases some of the screens you get with this package:
 
 <table>
@@ -29,16 +28,19 @@ A following example showcases some of the screens you get with this package:
     </tbody>
 </table>
 
-
 ## Before getting started:
+
 - Create an account on [Dyte Developer Portal](http://dev.dyte.io/)
+
 - Create some [presets](https://dev.dyte.io/roles-presets) on the portal.
+
 > **_Presets:_**  Permissions that you grant to certain role in your Dyte dev portal organization.
+
 - Create a [Dyte meeting](https://docs.dyte.io/api/?v=v2#/operations/create_meeting).
+
 - [Add participant](https://docs.dyte.io/api/?v=v2#/operations/add_participant) to your meeting.
 
 - As you add a participant to your meeting, you'll get a `authToken`. That's all you require to initialize a full-feature dyte audio/video call.
-
 
 ## Usage
 
@@ -55,6 +57,7 @@ A following example showcases some of the screens you get with this package:
 - #### Android
 
     Set `compileSdkVersion 33` & `minSdkVersion 21` inside app-level `build.grade`.
+
     ```dart
 
     defaultConfig {
@@ -69,12 +72,15 @@ A following example showcases some of the screens you get with this package:
 
 - #### iOS
 
-    1.  Set minimum deployment target for your Flutter app to 13.0 or higher in your Podfile.
+    1. Set minimum deployment target for your Flutter app to 13.0 or higher in your Podfile.
+
     ```Swift
     platform :ios, '13.0'
     ```
+
     2. Add the following keys to your `Info.plist file to get Camera & Microphone permission.
-    ```
+
+    ```Swift
     /* Attach the permission to use camera & microphone. */
 
     <key>NSCameraUsageDescription</key>
@@ -91,6 +97,7 @@ Build DyteMeetingInfo object (preferably _v2 meeting_) using the `authToken` you
 ```dart
     final meetingInfoV2 = DyteMeetingInfoV2(authToken: '<auth_token>');
 ```
+
 The `DyteUIKit` is the main class of the SDK. It is the entry point and the only class required to initialize Dyte UI Kit SDK.
 
 ```dart
@@ -136,10 +143,10 @@ To launch the meeting UI all you need to do is call the `loadUI()` method of the
     }
 ```
 
-
 ### Conclusion
 
 To know more about the customization you can do with `dyte_uikit`, head over to [docs.dyte.io/flutter](`https://docs.dyte.io/flutter).
 
 ### Sample app
-You can clone our [sample app](https://github.com/dyte-io/mobile-samples/tree/main/flutter_uikit) to get more idea about the implementation of `dyte_uikit` in Flutter application.
+
+You can clone our [sample app](https://github.com/dyte-io/flutter-samples) to get more idea about the implementation of `dyte_uikit` in Flutter application.

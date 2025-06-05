@@ -7,7 +7,7 @@ final getIt = GetIt.instance;
 class DyteDependencyHandler {
   static late DyteUIKitInfo uikitInfo;
   static late DyteMobileClient? client;
-  static void setupDependecies(
+  static void setupDependencies(
     DyteUIKitInfo dyteUIKitInfo,
     DyteMobileClient? client,
   ) {

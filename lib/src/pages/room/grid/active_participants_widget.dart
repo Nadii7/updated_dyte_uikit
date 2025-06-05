@@ -11,7 +11,7 @@ import 'package:dyte_uikit/src/widgets/participant_tile/dyte_participant_tile.da
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../data/states/waitlisted_participant_states.dart';
+import '../../../data/states/whitelisted_participant_states.dart';
 import 'dyte_regular_tile_grid_delegate.dart';
 
 class ActiveParticipantsWidget extends ConsumerStatefulWidget {

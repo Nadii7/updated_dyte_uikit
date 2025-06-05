@@ -31,6 +31,7 @@ class DyteUIKitBuilder {
   final String? arbPath;
 
   static DyteUiKit build({
+    required Function()? onClose,
     required DyteUIKitInfo uiKitInfo,
     String? arbPath,
     DyteMobileClient? client,
@@ -40,10 +41,11 @@ class DyteUIKitBuilder {
       DyteStrings(arbPath: arbPath).init();
     }
     if (!getIt.isRegistered<DyteDesignTokens>()) {
-      DyteDependencyHandler.setupDependecies(uiKitInfo, client);
+      DyteDependencyHandler.setupDependencies(uiKitInfo, client);
     }
     return DyteUiKit(
       uiKitInfo,
+      onClose: onClose,
       skipSetupPage: skipSetupPage,
     );
   }
@@ -56,8 +58,11 @@ class DyteUIKitBuilder {
 class DyteUiKit extends StatelessWidget {
   final DyteUIKitInfo _uiKitInfo;
   final bool skipSetupPage;
+  final Function()? onClose;
+
   const DyteUiKit(
     this._uiKitInfo, {
+    required this.onClose,
     this.skipSetupPage = false,
     super.key,
   });
@@ -72,7 +77,10 @@ class DyteUiKit extends StatelessWidget {
 
   Widget _app() {
     dyteConfig.skipSetupScreen = skipSetupPage;
-    return DyteApp(uikitInfo.meetingInfo);
+    return DyteApp(
+      uikitInfo.meetingInfo,
+      onClose: onClose,
+    );
   }
 
   @override
@@ -82,8 +90,8 @@ class DyteUiKit extends StatelessWidget {
       observers: [Logger()],
       client: mobileClient,
       uiKitInfo: uikitInfo,
-      child: WillPopScope(
-        onWillPop: () async => false,
+      child: PopScope(
+        canPop: false,
         child: _app(),
       ),
     );
@@ -112,10 +120,9 @@ class _DyteProviderState extends State<DyteProvider> {
   @override
   void initState() {
     if (!getIt.isRegistered<DyteDesignTokens>()) {
-      DyteDependencyHandler.setupDependecies(
+      DyteDependencyHandler.setupDependencies(
         widget.uiKitInfo,
         widget.client,
-        // dyteConfig,
       );
     }
     super.initState();

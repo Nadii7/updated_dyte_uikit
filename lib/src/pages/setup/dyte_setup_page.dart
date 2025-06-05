@@ -55,8 +55,8 @@ class _SetupPageState extends ConsumerState<DyteSetupScreen> {
         ref.watch(editNameProvider.select((name) => name.isEmpty));
     final theme = AppTheme(globalDesignToken.colorToken).theme;
 
-    return WillPopScope(
-      onWillPop: () async => false,
+    return  PopScope(
+      canPop: false,
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,

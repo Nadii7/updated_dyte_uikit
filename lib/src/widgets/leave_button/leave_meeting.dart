@@ -10,15 +10,16 @@ import 'package:dyte_uikit/src/widgets/core/dyte_uikit_component.dart';
 import 'package:flutter/material.dart';
 
 class DyteLeaveMeetingDialog extends StatelessWidget implements UiKitElement {
-  const DyteLeaveMeetingDialog({
-    required this.dyteMobileClient,
-    this.designToken,
-    super.key,
-  });
-
+  final Function()? onClose;
+  final DyteDesignTokens? designToken;
   final DyteMobileClient dyteMobileClient;
 
-  final DyteDesignTokens? designToken;
+  const DyteLeaveMeetingDialog({
+    super.key,
+    required this.onClose,
+    this.designToken,
+    required this.dyteMobileClient,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +75,7 @@ class DyteLeaveMeetingDialog extends StatelessWidget implements UiKitElement {
                     onPressed: () {
                       Navigator.of(context, rootNavigator: true).pop();
                       dyteMobileClient.leaveRoom();
+                      if (onClose != null) onClose!();
                     },
                   ),
                 ),

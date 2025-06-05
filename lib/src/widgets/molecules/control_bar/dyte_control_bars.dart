@@ -14,18 +14,27 @@ import '../stage_req_button_widget.dart';
 class DyteControlBar {
   DyteControlBar._();
 
-  static Widget gc({DyteDesignTokens? designToken}) => SafeArea(
+  static Widget gc(
+          {DyteDesignTokens? designToken, required Function()? onClose}) =>
+      SafeArea(
         child: _DyteGCControlBar(
+          onClose: onClose,
           individualDesignToken: designToken,
         ),
       );
-  static Widget webinar({DyteDesignTokens? designToken}) => SafeArea(
+  static Widget webinar(
+          {DyteDesignTokens? designToken, required Function()? onClose}) =>
+      SafeArea(
         child: _DyteStageControlBar(
+          onClose: onClose,
           individualDesignToken: designToken,
         ),
       );
-  static Widget livestream({DyteDesignTokens? designToken}) => SafeArea(
+  static Widget livestream(
+          {DyteDesignTokens? designToken, required Function()? onClose}) =>
+      SafeArea(
         child: _DyteStageControlBar(
+          onClose: onClose,
           individualDesignToken: designToken,
           canLivestream: dyteMobileClient.permissions.livestream.canLivestream,
         ),
@@ -33,8 +42,14 @@ class DyteControlBar {
 }
 
 class _DyteGCControlBar extends ConsumerStatefulWidget {
+  final Function()? onClose;
+
   final DyteDesignTokens? individualDesignToken;
-  const _DyteGCControlBar({this.individualDesignToken});
+
+  const _DyteGCControlBar({
+    this.individualDesignToken,
+    required this.onClose,
+  });
 
   @override
   ConsumerState<_DyteGCControlBar> createState() => _DyteGCControlBarState();
@@ -86,7 +101,10 @@ class _DyteGCControlBarState extends ConsumerState<_DyteGCControlBar> {
             dyteMobileClient: dyteMobileClient,
           ),
           const MoreButtonWidget(),
-          DyteLeaveButton(dyteMobileClient: dyteMobileClient),
+          DyteLeaveButton(
+            dyteMobileClient: dyteMobileClient,
+            onClose: widget.onClose,
+          ),
         ],
       ),
     );
@@ -120,10 +138,13 @@ class _OnStageToggleWidgetState extends ConsumerState<OnStageToggleWidget> {
 }
 
 class _DyteStageControlBar extends ConsumerStatefulWidget {
-  final DyteDesignTokens designToken;
   final bool canLivestream;
+  final Function()? onClose;
+  final DyteDesignTokens designToken;
   final DyteDesignTokens? individualDesignToken;
+
   _DyteStageControlBar({
+    required this.onClose,
     this.individualDesignToken,
     this.canLivestream = false,
   }) : designToken = individualDesignToken ?? globalDesignToken;
@@ -180,7 +201,10 @@ class _DyteStageControlBarState extends ConsumerState<_DyteStageControlBar> {
           MoreButtonWidget(
             canLivestream: widget.canLivestream,
           ),
-          DyteLeaveButton(dyteMobileClient: dyteMobileClient),
+          DyteLeaveButton(
+            dyteMobileClient: dyteMobileClient,
+            onClose: widget.onClose,
+          ),
         ],
       ),
     );

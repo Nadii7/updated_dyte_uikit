@@ -43,15 +43,13 @@ class DyteButtons {
         controller: controller ?? DyteButtonController(),
       );
 
-  //TODO: add an expanded button.
-
   /// Returns a [DyteButton] with a solid background color.
   /// [label] is the text to be displayed on the button.
   /// [onPressed] is the callback to be called when the button is pressed.
   /// [designToken] is the individual design token for the button, it has the
   /// same properties as [DyteDesignTokens] but it is optional.
   /// [icon] is the icon to be displayed on the button.
-  /// [iconPostion] is the position of the icon on the button.
+  /// [iconPosition] is the position of the icon on the button.
   /// [width] is the width of the button.
   /// [height] is the height of the button.
   static DyteButton iconWithLabel({

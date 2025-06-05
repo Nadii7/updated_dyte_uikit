@@ -23,7 +23,7 @@ import 'package:dyte_uikit/src/data/states/notification_state.dart';
 import 'package:dyte_uikit/src/data/states/participant_event_states.dart';
 import 'package:dyte_uikit/src/data/states/poll_states.dart';
 import 'package:dyte_uikit/src/data/states/router_states.dart';
-import 'package:dyte_uikit/src/data/states/waitlisted_participant_states.dart';
+import 'package:dyte_uikit/src/data/states/whitelisted_participant_states.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final localUserSettingsProvider =

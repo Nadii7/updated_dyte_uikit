@@ -50,7 +50,9 @@ class DyteNotificationNotifier extends Notifier<NotificationState>
   @override
   void onNewChatMessage(DyteChatMessage message) {
     if (_isNotificationByMe(message.userId) ||
-        _isChatNotificationAlreadyShown(message)) return;
+        _isChatNotificationAlreadyShown(message)) {
+      return;
+    }
     final textMessage = _getFormattedMessage(message);
     state = OnNewNotificationReceived(
         DyteNotification(textMessage, NotificationType.chat));
@@ -66,7 +68,9 @@ class DyteNotificationNotifier extends Notifier<NotificationState>
   @override
   void onParticipantJoin(DyteMeetingParticipant participant) {
     if (_isNotificationByMe(participant.id) ||
-        _isNotificationAlreadyShown(participant.hashCode.toString())) return;
+        _isNotificationAlreadyShown(participant.hashCode.toString())) {
+      return;
+    }
     state = OnNewNotificationReceived(DyteNotification(
         '${participant.name} joined', NotificationType.participant));
   }
@@ -74,7 +78,9 @@ class DyteNotificationNotifier extends Notifier<NotificationState>
   @override
   void onParticipantLeave(DyteMeetingParticipant participant) {
     if (_isNotificationByMe(participant.id) ||
-        _isNotificationAlreadyShown(participant.hashCode.toString())) return;
+        _isNotificationAlreadyShown(participant.hashCode.toString())) {
+      return;
+    }
     state = OnNewNotificationReceived(DyteNotification(
         '${participant.name} left', NotificationType.participant));
   }

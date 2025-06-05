@@ -1,5 +1,5 @@
 import 'package:dyte_uikit/dyte_uikit.dart';
-import 'package:dyte_uikit/src/data/states/waitlisted_participant_states.dart';
+import 'package:dyte_uikit/src/data/states/whitelisted_participant_states.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class WaitingRoomNotifer extends Notifier<WaitlistedParticipantStates>

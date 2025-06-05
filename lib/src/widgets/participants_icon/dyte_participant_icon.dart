@@ -20,7 +20,6 @@ class DyteParticipantsIconWidget extends ConsumerWidget {
       },
       icon: Icon(
         DyteIcons.participants,
-        // TODO: use AppTheme
         color: globalDesignToken.colorToken.textColor.shade1000,
       ),
     );

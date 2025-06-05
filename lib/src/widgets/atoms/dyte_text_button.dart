@@ -61,7 +61,6 @@ class DyteTextButton extends StatelessWidget {
       case Variant.primary:
         return brandColorSwatch.shade500;
       case Variant.secondary:
-        // TODO: check for original color.
         return backgroundColorSwatch.shade900;
       default:
         return brandColorSwatch.shade500;

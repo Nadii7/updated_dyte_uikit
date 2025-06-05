@@ -1,5 +1,5 @@
 import 'package:dyte_uikit/src/di/di.dart';
-import 'package:dyte_uikit/src/pages/room/grid/active_particpants_widget.dart';
+import 'package:dyte_uikit/src/pages/room/grid/active_participants_widget.dart';
 import 'package:dyte_uikit/src/pages/room/grid/dyte_page_view_widget.dart';
 import 'package:dyte_uikit/src/strings.dart';
 import 'package:dyte_uikit/src/tokens/theme.dart';
@@ -14,12 +14,14 @@ import '../../../widgets/atoms/dyte_text.dart';
 import '../../../widgets/atoms/dyte_text_button.dart';
 
 class DyteLivestreamMeetingRoom extends ConsumerWidget {
+  final Function()? onClose;
+
   final DyteAudioDevice? selectedAudioDevice;
   final DyteVideoDevice? selectedVideoDevice;
 
   const DyteLivestreamMeetingRoom(
       this.selectedAudioDevice, this.selectedVideoDevice,
-      {super.key});
+      {super.key, required this.onClose});
 
   Widget _buildCancelButton(ThemeData theme, BuildContext context) {
     return DyteTextButton(
@@ -89,17 +91,17 @@ class DyteLivestreamMeetingRoom extends ConsumerWidget {
     });
 
     if (!isOnStage) {
-      return WillPopScope(
-        onWillPop: () async => false,
+      return PopScope(
+        canPop: false,
         child: Scaffold(
           appBar: DyteAppBars.lvs(),
           body: const SafeArea(child: ShowLivestreamWidget()),
-          bottomNavigationBar: DyteControlBar.livestream(),
+          bottomNavigationBar: DyteControlBar.livestream(onClose: onClose),
         ),
       );
     } else {
-      return WillPopScope(
-        onWillPop: () async => false,
+      return PopScope(
+        canPop: false,
         child: Scaffold(
           appBar: DyteAppBars.lvs(),
           body: SafeArea(
@@ -107,7 +109,7 @@ class DyteLivestreamMeetingRoom extends ConsumerWidget {
                 ? const ActiveParticipantsWidget()
                 : const DytePageViewWidget(),
           ),
-          bottomNavigationBar: DyteControlBar.livestream(),
+          bottomNavigationBar: DyteControlBar.livestream(onClose: onClose),
         ),
       );
     }

@@ -15,7 +15,6 @@ class SwitchCameraWidget extends ConsumerWidget {
     Widget cameraToggler = DyteIconButton(
       icon: const Icon(DyteIcons.camera_switch),
       onPressed: () async {
-        // TODO: improve the logic
         final selectedVideoDevice =
             await dyteMobileClient.localUser.getSelectedVideoDevice();
         final videoDevices = await dyteMobileClient.localUser.getVideoDevices();

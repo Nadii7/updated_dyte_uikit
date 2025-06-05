@@ -24,7 +24,6 @@ class DyteChatIconWidget extends ConsumerWidget {
       },
       icon: Icon(
         DyteIcons.chat,
-        // TODO: use AppTheme
         color: globalDesignToken.colorToken.textColor.shade1000,
       ),
     );

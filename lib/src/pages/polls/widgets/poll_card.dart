@@ -159,7 +159,7 @@ class OptionSelectorState extends ConsumerState<OptionSelector> {
               groupValue: widget.votedOption ??
                   ref.watch(widget.optionSelectorNotifier),
               activeColor: theme.colorScheme.primary,
-              fillColor: MaterialStateProperty.all(theme.colorScheme.primary),
+              fillColor: WidgetStateProperty.all(theme.colorScheme.primary),
               onChanged: widget.votedOption == null
                   ? (_) {
                       dyteMobileClient.polls.vote(

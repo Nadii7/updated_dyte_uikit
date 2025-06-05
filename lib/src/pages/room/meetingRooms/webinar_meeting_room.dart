@@ -9,16 +9,18 @@ import '../../../di/riverpod_di.dart';
 import '../../../widgets/atoms/dyte_app_bar.dart';
 import '../../../widgets/atoms/dyte_text.dart';
 import '../../../widgets/atoms/dyte_text_button.dart';
-import '../grid/active_particpants_widget.dart';
+import '../grid/active_participants_widget.dart';
 import '../grid/dyte_page_view_widget.dart';
 
 class DyteWebinarMeetingRoom extends ConsumerWidget {
+  final Function()? onClose;
+
   final DyteAudioDevice? selectedAudioDevice;
   final DyteVideoDevice? selectedVideoDevice;
 
   const DyteWebinarMeetingRoom(
       this.selectedAudioDevice, this.selectedVideoDevice,
-      {super.key});
+      {super.key, required this.onClose});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -79,8 +81,8 @@ class DyteWebinarMeetingRoom extends ConsumerWidget {
       }
     });
 
-    return WillPopScope(
-      onWillPop: () async => false,
+    return PopScope(
+      canPop: false,
       child: Scaffold(
         appBar: DyteAppBars.webinar(),
         body: SafeArea(
@@ -88,7 +90,7 @@ class DyteWebinarMeetingRoom extends ConsumerWidget {
               ? const ActiveParticipantsWidget()
               : const DytePageViewWidget(),
         ),
-        bottomNavigationBar: DyteControlBar.webinar(),
+        bottomNavigationBar: DyteControlBar.webinar(onClose: onClose),
       ),
     );
   }

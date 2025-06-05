@@ -2,7 +2,7 @@ import 'package:dyte_uikit/src/pages/room/grid/dyte_tab_viewer_widget.dart';
 import 'package:dyte_uikit/src/widgets/molecules/page_indicator.dart';
 import 'package:flutter/material.dart';
 
-import 'active_particpants_widget.dart';
+import 'active_participants_widget.dart';
 
 class DytePageViewWidget extends StatefulWidget {
   const DytePageViewWidget({super.key});

@@ -20,7 +20,6 @@ class DytePollsIconWidget extends ConsumerWidget {
       },
       icon: Icon(
         DyteIcons.poll,
-        // TODO: use AppTheme
         color: globalDesignToken.colorToken.textColor.shade1000,
       ),
     );

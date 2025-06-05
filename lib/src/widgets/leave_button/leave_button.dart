@@ -15,12 +15,14 @@ class DyteLeaveButton extends StatefulWidget with UiKitElement {
     super.key,
     this.height,
     this.width,
+    required this.onClose,
   }) : designToken = individualDesignToken ?? globalDesignToken;
 
   final DyteDesignTokens designToken;
   final DyteMobileClient dyteMobileClient;
   final double? height;
   final double? width;
+  final Function()? onClose;
 
   @override
   State<DyteLeaveButton> createState() => _DyteLeaveButtonState();
@@ -54,7 +56,9 @@ class _DyteLeaveButtonState extends State<DyteLeaveButton> {
           showDialog(
             builder: (context) {
               return DyteLeaveMeetingDialog(
-                  dyteMobileClient: widget.dyteMobileClient);
+                onClose: widget.onClose,
+                dyteMobileClient: widget.dyteMobileClient,
+              );
             },
             context: context,
           );

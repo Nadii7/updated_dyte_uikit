@@ -19,7 +19,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'app.dart';
 
 class RoomRoutePage extends ConsumerStatefulWidget {
-  const RoomRoutePage({super.key});
+  final Function()? onClose;
+
+  const RoomRoutePage({
+    super.key,
+    required this.onClose,
+  });
 
   @override
   ConsumerState<RoomRoutePage> createState() => _RoomRoutePageState();
@@ -115,7 +120,9 @@ class _RoomRoutePageState extends ConsumerState<RoomRoutePage> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const DyteGCMeetingRoom(),
+                  builder: (context) => DyteGCMeetingRoom(
+                    onClose: widget.onClose,
+                  ),
                   settings: RouteSettings(name: RouteNames.meeting),
                 ),
               );
@@ -125,7 +132,9 @@ class _RoomRoutePageState extends ConsumerState<RoomRoutePage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => DyteWebinarMeetingRoom(
-                      selectedAudioDevice, selectedVideoDevice),
+                      onClose: widget.onClose,
+                      selectedAudioDevice,
+                      selectedVideoDevice),
                   settings: RouteSettings(name: RouteNames.meeting),
                 ),
               );
@@ -135,7 +144,9 @@ class _RoomRoutePageState extends ConsumerState<RoomRoutePage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => DyteLivestreamMeetingRoom(
-                      selectedAudioDevice, selectedVideoDevice),
+                      onClose: widget.onClose,
+                      selectedAudioDevice,
+                      selectedVideoDevice),
                   settings: RouteSettings(name: RouteNames.meeting),
                 ),
               );

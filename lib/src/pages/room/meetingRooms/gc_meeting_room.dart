@@ -1,7 +1,7 @@
 import 'package:dyte_uikit/dyte_uikit.dart';
 import 'package:dyte_uikit/src/data/states/notification_state.dart';
 import 'package:dyte_uikit/src/di/riverpod_di.dart';
-import 'package:dyte_uikit/src/pages/room/grid/active_particpants_widget.dart';
+import 'package:dyte_uikit/src/pages/room/grid/active_participants_widget.dart';
 import 'package:dyte_uikit/src/pages/room/grid/dyte_page_view_widget.dart';
 import 'package:dyte_uikit/src/widgets/atoms/dyte_app_bar.dart';
 import 'package:dyte_uikit/src/widgets/molecules/control_bar/dyte_control_bars.dart';
@@ -12,7 +12,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 const appbarHeight = 56.0;
 
 class DyteGCMeetingRoom extends ConsumerWidget {
-  const DyteGCMeetingRoom({super.key});
+  final Function()? onClose;
+
+  const DyteGCMeetingRoom({
+    super.key,
+    required this.onClose,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,8 +31,8 @@ class DyteGCMeetingRoom extends ConsumerWidget {
       }
     });
 
-    return WillPopScope(
-      onWillPop: () async => false,
+    return PopScope(
+      canPop: false,
       child: Scaffold(
         appBar: DyteAppBars.gc(),
         body: SafeArea(
@@ -36,7 +41,7 @@ class DyteGCMeetingRoom extends ConsumerWidget {
               ? const ActiveParticipantsWidget()
               : const DytePageViewWidget(),
         ),
-        bottomNavigationBar: DyteControlBar.gc(),
+        bottomNavigationBar: DyteControlBar.gc(onClose: onClose),
       ),
     );
   }

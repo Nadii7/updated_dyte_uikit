@@ -76,7 +76,7 @@ Widget getTextContentForSnackbar(
 void showSnackbarWidget(BuildContext context, Widget content) =>
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        backgroundColor: backgroundColorSwatch.shade900.withOpacity(0.85),
+        backgroundColor: backgroundColorSwatch.shade900.withValues(alpha: 0.85),
         onVisible: () async => await HapticFeedback.mediumImpact(),
         elevation: 0,
         shape: RoundedRectangleBorder(

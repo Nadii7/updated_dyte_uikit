@@ -86,7 +86,7 @@ class DyteImageMessageLayout extends StatelessWidget {
                   width: 32,
                   decoration: BoxDecoration(
                     color: globalDesignToken.colorToken.textColor.shade800
-                        .withOpacity(.3),
+                        .withValues(alpha:0.3),
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: IconButton(
@@ -109,7 +109,7 @@ class DyteImageMessageLayout extends StatelessWidget {
                   width: 32,
                   decoration: BoxDecoration(
                     color: globalDesignToken.colorToken.textColor.shade800
-                        .withOpacity(.3),
+                        .withValues(alpha:0.3),
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: IconButton(

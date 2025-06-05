@@ -1,17 +1,17 @@
+import 'package:flutter/material.dart';
+import 'package:dyte_uikit/src/di/di.dart';
 import 'package:dyte_icons/dyte_icons.dart';
 import 'package:dyte_uikit/dyte_uikit.dart';
-import 'package:dyte_uikit/src/di/di.dart';
-import 'package:dyte_uikit/src/di/riverpod_di.dart';
 import 'package:dyte_uikit/src/strings.dart';
-import 'package:dyte_uikit/src/tokens/size/size_util.dart';
 import 'package:dyte_uikit/src/tokens/theme.dart';
-import 'package:dyte_uikit/src/widgets/atoms/dyte_app_bar.dart';
-import 'package:dyte_uikit/src/widgets/atoms/dyte_text.dart';
+import 'package:dyte_uikit/src/di/riverpod_di.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:dyte_uikit/src/tokens/size/size_util.dart';
 import 'package:dyte_uikit/src/widgets/atoms/vh_space.dart';
+import 'package:dyte_uikit/src/widgets/atoms/dyte_text.dart';
+import 'package:dyte_uikit/src/widgets/atoms/dyte_app_bar.dart';
 import 'package:dyte_uikit/src/widgets/molecules/audio_devices_loader.dart';
 import 'package:dyte_uikit/src/widgets/molecules/video_devices_loader.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SetupSettingsPage extends ConsumerWidget {
   SetupSettingsPage({
@@ -82,8 +82,8 @@ class DeviceLoader extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final localUserApi = ref.watch(localUserSettingsProvider.notifier);
     final theme = AppTheme(globalDesignToken.colorToken).theme;
+    final localUserApi = ref.watch(localUserSettingsProvider.notifier);
     final isCameraGranted =
         dyteMobileClient.localUser.permissions.isCameraPermissionGranted;
     final isMicGranted =
@@ -108,7 +108,7 @@ class DeviceLoader extends ConsumerWidget {
             ),
             vspace3,
           ],
-          ...[
+          if (isMicGranted && localUserApi.isAudioEnabled) ...[
             Padding(
               padding: EdgeInsets.symmetric(horizontal: context.width * .15),
               child: DyteText(

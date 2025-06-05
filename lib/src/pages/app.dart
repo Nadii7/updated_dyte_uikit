@@ -9,8 +9,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class DyteApp extends ConsumerStatefulWidget {
+  final Function()? onClose;
+
   final DyteMeetingInfo dyteMeetingInfo;
-  const DyteApp(this.dyteMeetingInfo, {super.key});
+  const DyteApp(this.dyteMeetingInfo, {super.key, required this.onClose});
   @override
   ConsumerState<DyteApp> createState() => _DyteAppState();
 }
@@ -36,7 +38,7 @@ class _DyteAppState extends ConsumerState<DyteApp> {
       ],
       theme: appTheme.theme,
       debugShowCheckedModeBanner: false,
-      home: const RoomRoutePage(),
+      home: RoomRoutePage(onClose: widget.onClose),
     );
   }
 

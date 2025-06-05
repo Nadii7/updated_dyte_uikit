@@ -20,7 +20,6 @@ class DytePluginIconWidget extends ConsumerWidget {
       },
       icon: Icon(
         DyteIcons.rocket,
-        // TODO: use AppTheme
         color: globalDesignToken.colorToken.textColor.shade1000,
       ),
     );
