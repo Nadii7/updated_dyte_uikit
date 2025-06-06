@@ -1,15 +1,14 @@
-import 'package:dyte_core/dyte_core.dart';
-import 'package:dyte_icons/dyte_icons.dart';
-import 'package:dyte_uikit/src/data/states/local_user_states.dart';
-import 'package:dyte_uikit/src/di/di.dart';
-import 'package:dyte_uikit/src/di/riverpod_di.dart';
-import 'package:dyte_uikit/src/strings.dart';
-import 'package:dyte_uikit/src/tokens/size/size_util.dart';
-import 'package:dyte_uikit/src/tokens/theme.dart';
-import 'package:dyte_uikit/src/widgets/atoms/dyte_text.dart';
-import 'package:dyte_uikit/src/widgets/atoms/vh_space.dart';
 import 'package:flutter/material.dart';
+import 'package:dyte_core/dyte_core.dart';
+import 'package:dyte_uikit/src/di/di.dart';
+import 'package:dyte_icons/dyte_icons.dart';
+import 'package:dyte_uikit/src/strings.dart';
+import 'package:dyte_uikit/src/tokens/theme.dart';
+import 'package:dyte_uikit/src/di/riverpod_di.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:dyte_uikit/src/tokens/size/size_util.dart';
+import 'package:dyte_uikit/src/widgets/atoms/dyte_text.dart';
+import 'package:dyte_uikit/src/data/states/local_user_states.dart';
 
 class RecorderWidget extends ConsumerWidget {
   const RecorderWidget({super.key});
@@ -24,9 +23,6 @@ class RecorderWidget extends ConsumerWidget {
     final recWid = (recordingState == DyteRecordingState.recording)
         ? Container(
             margin: EdgeInsets.symmetric(horizontal: 5),
-            padding: ref.read(localUserSettingsProvider.notifier).isVideoEnabled
-                ? EdgeInsets.zero
-                : EdgeInsets.symmetric(horizontal: hspace4.width!),
             child: Row(
               children: [
                 if (recordingState == DyteRecordingState.recording) ...[
