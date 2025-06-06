@@ -22,6 +22,7 @@ class MessageSender extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       color: theme.colorScheme.primaryContainer,
       child: SafeArea(
+        bottom: MediaQuery.of(context).viewInsets.bottom == 0,
         child: Row(
           children: [
             if (dyteMobileClient.permissions.chat.canSendFiles) ...[
