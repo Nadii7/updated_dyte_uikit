@@ -1,3 +1,4 @@
+import '../../../../dyte_uikit.dart';
 import 'package:flutter/material.dart';
 import 'package:dyte_uikit/src/di/di.dart';
 import 'package:dyte_icons/dyte_icons.dart';
@@ -8,8 +9,6 @@ import 'package:dyte_uikit/src/widgets/molecules/snackbar.dart';
 import 'package:dyte_uikit/src/widgets/atoms/dyte_text_field.dart';
 import 'package:dyte_uikit/src/widgets/atoms/dyte_icon_button.dart';
 import 'package:dyte_uikit/src/pages/chats/widgets/send_other_formats.dart';
-
-import '../../../../dyte_uikit.dart';
 
 class MessageSender extends StatelessWidget {
   MessageSender({super.key});
@@ -44,22 +43,25 @@ class MessageSender extends StatelessWidget {
             if (dyteMobileClient.permissions.chat.canSendText) ...[
               SizedBox(width: context.adjust(5)),
               Expanded(
-                child: DyteTextField(
-                  width: null,
-                  maxLines: null,
-                  height: context.adjust(48),
-                  controller: _messageController,
-                  hintText: '${DyteStrings.message}...',
-                  hintStyle: theme.textTheme.titleMedium,
-                  textInputAction: TextInputAction.newline,
-                  fillColor:
-                      globalDesignToken.colorToken.backgroundColor.shade1000,
-                  border: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: theme.colorScheme.secondaryContainer),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(
-                        borderToken.getRadius(BorderSize.one),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: DyteTextField(
+                    width: null,
+                    maxLines: null,
+                    height: context.adjust(48),
+                    controller: _messageController,
+                    hintText: '${DyteStrings.message}...',
+                    hintStyle: theme.textTheme.titleMedium,
+                    textInputAction: TextInputAction.newline,
+                    fillColor:
+                        globalDesignToken.colorToken.backgroundColor.shade1000,
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: theme.colorScheme.secondaryContainer),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(
+                          borderToken.getRadius(BorderSize.one),
+                        ),
                       ),
                     ),
                   ),
