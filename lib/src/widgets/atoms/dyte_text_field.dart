@@ -57,6 +57,7 @@ class DyteTextField extends StatelessWidget {
         decoration: InputDecoration(
           filled: true,
           isDense: true,
+          counterText: '',
           hintText: hintText,
           hintStyle: hintStyle ?? theme.textTheme.bodyMedium,
           fillColor: fillColor ?? backgroundColorSwatch.shade900,

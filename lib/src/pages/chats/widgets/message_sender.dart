@@ -41,10 +41,9 @@ class MessageSender extends StatelessWidget {
               ),
             ],
             if (dyteMobileClient.permissions.chat.canSendText) ...[
-              SizedBox(width: context.adjust(5)),
+              SizedBox(width: context.adjust(10)),
               Expanded(
-                child: Align(
-                  alignment: Alignment.center,
+                child: Center(
                   child: DyteTextField(
                     width: null,
                     maxLines: null,
@@ -67,7 +66,7 @@ class MessageSender extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: context.adjust(5)),
+              SizedBox(width: context.adjust(10)),
               DyteIconButton(
                 backgroundColor: theme.colorScheme.primary,
                 icon: Icon(
