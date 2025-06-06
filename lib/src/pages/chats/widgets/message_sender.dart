@@ -47,7 +47,6 @@ class MessageSender extends StatelessWidget {
                 SizedBox(width: context.adjust(10)),
                 Expanded(
                   child: DyteTextField(
-                    width: null,
                     maxLines: null,
                     height: context.adjust(48),
                     controller: _messageController,
