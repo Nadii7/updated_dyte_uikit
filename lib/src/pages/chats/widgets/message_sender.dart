@@ -20,7 +20,7 @@ class MessageSender extends StatelessWidget {
     final theme = AppTheme(globalDesignToken.colorToken).theme;
     return Container(
       width: context.width,
-      padding: const EdgeInsets.all(10),
+      padding: EdgeInsets.all(context.adjust(10)),
       child: SafeArea(
         child: SizedBox(
           height: context.adjust(48),
@@ -30,6 +30,7 @@ class MessageSender extends StatelessWidget {
             children: [
               if (dyteMobileClient.permissions.chat.canSendFiles) ...[
                 DyteIconButton(
+                  height: context.adjust(48),
                   backgroundColor: theme.colorScheme.secondaryContainer,
                   icon: Icon(
                     DyteIcons.add,
@@ -68,6 +69,7 @@ class MessageSender extends StatelessWidget {
                 ),
                 SizedBox(width: context.adjust(10)),
                 DyteIconButton(
+                  height: context.adjust(48),
                   backgroundColor: theme.colorScheme.primary,
                   icon: Icon(
                     DyteIcons.send,
