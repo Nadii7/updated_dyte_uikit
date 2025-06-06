@@ -22,28 +22,29 @@ class MessageSender extends StatelessWidget {
       width: context.width,
       padding: const EdgeInsets.all(10),
       child: SafeArea(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            if (dyteMobileClient.permissions.chat.canSendFiles) ...[
-              DyteIconButton(
-                backgroundColor: theme.colorScheme.secondaryContainer,
-                icon: Icon(
-                  DyteIcons.add,
-                  color: theme.colorScheme.onSecondary,
+        child: SizedBox(
+          height: context.adjust(48),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              if (dyteMobileClient.permissions.chat.canSendFiles) ...[
+                DyteIconButton(
+                  backgroundColor: theme.colorScheme.secondaryContainer,
+                  icon: Icon(
+                    DyteIcons.add,
+                    color: theme.colorScheme.onSecondary,
+                  ),
+                  onPressed: () async => await showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (context) => const SendOtherFormats(),
+                  ),
                 ),
-                onPressed: () async => await showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (context) => const SendOtherFormats(),
-                ),
-              ),
-            ],
-            if (dyteMobileClient.permissions.chat.canSendText) ...[
-              SizedBox(width: context.adjust(10)),
-              Expanded(
-                child: Center(
+              ],
+              if (dyteMobileClient.permissions.chat.canSendText) ...[
+                SizedBox(width: context.adjust(10)),
+                Expanded(
                   child: DyteTextField(
                     width: null,
                     maxLines: null,
@@ -65,30 +66,30 @@ class MessageSender extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
-              SizedBox(width: context.adjust(10)),
-              DyteIconButton(
-                backgroundColor: theme.colorScheme.primary,
-                icon: Icon(
-                  DyteIcons.send,
-                  color: theme.colorScheme.onSecondary,
-                ),
-                onPressed: () {
-                  if (_messageController.text.trim().isEmpty) {
-                    showSnackbarWidget(
-                      context,
-                      getTextContentForSnackbar(
-                          'Message cannot be empty', context),
-                    );
-                    return;
-                  }
-                  dyteMobileClient.chat
-                      .sendTextMessage(_messageController.text.trim());
-                  _messageController.clear();
-                },
-              )
-            ]
-          ],
+                SizedBox(width: context.adjust(10)),
+                DyteIconButton(
+                  backgroundColor: theme.colorScheme.primary,
+                  icon: Icon(
+                    DyteIcons.send,
+                    color: theme.colorScheme.onSecondary,
+                  ),
+                  onPressed: () {
+                    if (_messageController.text.trim().isEmpty) {
+                      showSnackbarWidget(
+                        context,
+                        getTextContentForSnackbar(
+                            'Message cannot be empty', context),
+                      );
+                      return;
+                    }
+                    dyteMobileClient.chat
+                        .sendTextMessage(_messageController.text.trim());
+                    _messageController.clear();
+                  },
+                )
+              ]
+            ],
+          ),
         ),
       ),
     );
