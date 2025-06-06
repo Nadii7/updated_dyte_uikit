@@ -44,8 +44,8 @@ class DyteIconButton extends StatelessWidget {
         children: [
           if (isDisabled)
             const Positioned(
-              right: 4,
               top: 4,
+              right: 4,
               child: Icon(
                 DyteIcons.warning,
                 color: StatusColor.warning,
