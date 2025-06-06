@@ -42,9 +42,9 @@ class MessageSender extends StatelessWidget {
               Expanded(
                 child: DyteTextField(
                   width: null,
-                  height: null,
                   maxLines: null,
                   border: InputBorder.none,
+                  height: context.adjust(48),
                   controller: _messageController,
                   hintText: '${DyteStrings.message}...',
                   hintStyle: theme.textTheme.titleMedium,
