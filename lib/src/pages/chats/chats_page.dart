@@ -17,28 +17,15 @@ class ChatsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final chatPermissions = dyteMobileClient.permissions.chat;
     return Scaffold(
+      body: const ChatsViewerWidget(),
+      bottomNavigationBar: chatPermissions.canSend ? MessageSender() : null,
+      backgroundColor: globalDesignToken.colorToken.backgroundColor.shade1000,
       appBar: DyteAppBar(
-        hasLeading: false,
         remainingTime: remainingTime,
         title: DyteText(DyteStrings.chat),
         leadingIcon: const Icon(DyteIcons.dismiss),
         onPressed: () => DyteRouter.of(context).pop(),
         backgroundColor: globalDesignToken.colorToken.backgroundColor.shade1000,
-      ),
-      backgroundColor: globalDesignToken.colorToken.backgroundColor.shade1000,
-      body: SingleChildScrollView(
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height - kToolbarHeight,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Expanded(child: ChatsViewerWidget()),
-              if (chatPermissions.canSend) MessageSender(),
-            ],
-          ),
-        ),
       ),
     );
   }

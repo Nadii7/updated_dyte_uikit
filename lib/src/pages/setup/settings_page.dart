@@ -27,7 +27,6 @@ class SetupSettingsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: DyteAppBar(
-        hasLeading: false,
         remainingTime: remainingTime,
         title: DyteText(DyteStrings.settings),
         leadingIcon: const Icon(DyteIcons.dismiss),
