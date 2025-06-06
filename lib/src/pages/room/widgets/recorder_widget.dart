@@ -23,7 +23,7 @@ class RecorderWidget extends ConsumerWidget {
 
     final recWid = (recordingState == DyteRecordingState.recording)
         ? Container(
-            margin: EdgeInsets.symmetric(horizontal: 10),
+            margin: EdgeInsets.symmetric(horizontal: 5),
             padding: ref.read(localUserSettingsProvider.notifier).isVideoEnabled
                 ? EdgeInsets.zero
                 : EdgeInsets.symmetric(horizontal: hspace4.width!),
