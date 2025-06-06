@@ -1,18 +1,17 @@
+import '../../di/di.dart';
+import 'package:flutter/material.dart';
 import 'package:dyte_icons/dyte_icons.dart';
 import 'package:dyte_uikit/src/tokens/theme.dart';
+import '../../pages/room/widgets/recorder_widget.dart';
+import '../../pages/livestream/live_indicator_widget.dart';
+import 'package:dyte_uikit/src/widgets/atoms/vh_space.dart';
+import '../../pages/livestream/live_host_count_widget.dart';
+import '../../pages/room/widgets/meeting_timer_widget.dart';
+import '../../pages/room/widgets/switch_camera_widget.dart';
+import '../../pages/livestream/live_viewer_count_widget.dart';
 import 'package:dyte_uikit/src/widgets/atoms/dyte_icon_button.dart';
 import 'package:dyte_uikit/src/widgets/atoms/participant_count.dart';
-import 'package:dyte_uikit/src/widgets/atoms/vh_space.dart';
 import 'package:dyte_uikit/src/widgets/meeting_title/dyte_meeting_title.dart';
-import 'package:flutter/material.dart';
-
-import '../../di/di.dart';
-import '../../pages/livestream/live_host_count_widget.dart';
-import '../../pages/livestream/live_indicator_widget.dart';
-import '../../pages/livestream/live_viewer_count_widget.dart';
-import '../../pages/room/widgets/meeting_timer_widget.dart';
-import '../../pages/room/widgets/recorder_widget.dart';
-import '../../pages/room/widgets/switch_camera_widget.dart';
 
 class DyteAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String remainingTime;
@@ -80,8 +79,10 @@ class DyteAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  PreferredSize _buildAppBarBottom(BuildContext context,
-      {bool showMeetingDuration = true}) {
+  PreferredSize _buildAppBarBottom(
+    BuildContext context, {
+    bool showMeetingDuration = true,
+  }) {
     final theme = AppTheme(globalDesignToken.colorToken).theme;
     return PreferredSize(
       preferredSize: Size.zero,
@@ -111,11 +112,11 @@ class _GCAppBar extends DyteAppBar {
   Widget _buildAppBar(BuildContext context) {
     final theme = AppTheme(globalDesignToken.colorToken).theme;
     return DyteAppBar(
-      remainingTime: remainingTime,
-      backgroundColor: theme.colorScheme.surface,
       hasLeading: false,
       centerTitle: false,
+      remainingTime: remainingTime,
       title: _buildAppBarTitle(context),
+      backgroundColor: theme.colorScheme.surface,
       actions: const [
         RecorderWidget(),
         SwitchCameraWidget(),
@@ -168,6 +169,7 @@ class _LivestreamAppBar extends DyteAppBar {
         LiveHostCountWidget(),
         LiveViewerCountWidget(),
         SwitchCameraWidget(),
+        
       ],
     );
   }

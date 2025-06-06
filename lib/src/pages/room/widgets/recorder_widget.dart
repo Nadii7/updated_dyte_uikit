@@ -24,18 +24,16 @@ class RecorderWidget extends ConsumerWidget {
     final recWid = Padding(
       padding: ref.read(localUserSettingsProvider.notifier).isVideoEnabled
           ? EdgeInsets.zero
-          : EdgeInsets.only(right: hspace4.width!),
+          : EdgeInsets.symmetric(horizontal: hspace4.width!),
       child: Row(
         children: [
           if (recordingState == DyteRecordingState.recording) ...[
             Icon(
               DyteIcons.recording,
-              color: theme.colorScheme.error,
               size: context.adjust(10),
+              color: theme.colorScheme.error,
             ),
-            SizedBox(
-              width: context.adjust(5),
-            ),
+            SizedBox(width: context.adjust(5)),
             DyteText(
               DyteStrings.rec,
               dyteTextStyle: theme.textTheme.bodyMedium!

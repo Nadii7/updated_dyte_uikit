@@ -1,3 +1,4 @@
+import '../../routes/router.dart';
 import 'package:flutter/material.dart';
 import 'package:dyte_uikit/src/di/di.dart';
 import 'package:dyte_icons/dyte_icons.dart';
@@ -28,13 +29,9 @@ class SetupSettingsPage extends ConsumerWidget {
       appBar: DyteAppBar(
         hasLeading: false,
         remainingTime: remainingTime,
-        actions: [
-          IconButton(
-            onPressed: Navigator.of(context).pop,
-            icon: const Icon(DyteIcons.dismiss),
-          )
-        ],
         title: DyteText(DyteStrings.settings),
+        leadingIcon: const Icon(DyteIcons.dismiss),
+        onPressed: () => DyteRouter.of(context).pop(),
       ),
       body: SafeArea(
         child: Center(

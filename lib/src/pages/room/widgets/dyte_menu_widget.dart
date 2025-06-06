@@ -47,10 +47,9 @@ class DyteMenuWidget extends ConsumerWidget {
     final List<Widget> options = [
       if (dyteMobileClient.permissions.poll.canView)
         DyteListTile(
-          leading: const Icon(
-            DyteIcons.poll,
-          ),
           title: DyteText(DyteStrings.polls),
+          leading: const Icon(DyteIcons.poll),
+          trailing: UnreadCountWidget(unreadNotitifers: [unreadPollsNotifier]),
           onTap: () {
             DyteRouter.of(context).pop();
             DyteRouter.of(context).push(
@@ -61,9 +60,6 @@ class DyteMenuWidget extends ConsumerWidget {
                   ref.read(pollsListNotifier).length,
                 );
           },
-          trailing: UnreadCountWidget(
-            unreadNotitifers: [unreadPollsNotifier],
-          ),
         ),
       if (dyteMobileClient.permissions.chat.canSend)
         DyteListTile(
@@ -132,7 +128,7 @@ class DyteMenuWidget extends ConsumerWidget {
       ),
     ];
     return Container(
-      height: options.length * 60,
+      padding: EdgeInsets.symmetric(horizontal: hspace1.width!),
       decoration: BoxDecoration(
         color: theme.colorScheme.primaryContainer,
         borderRadius: BorderRadius.only(
@@ -144,9 +140,11 @@ class DyteMenuWidget extends ConsumerWidget {
           ),
         ),
       ),
-      padding: EdgeInsets.symmetric(horizontal: hspace1.width!),
-      child: ListView(
-        children: options,
+      child: SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: options,
+        ),
       ),
     );
   }
