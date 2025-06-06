@@ -21,28 +21,31 @@ class RecorderWidget extends ConsumerWidget {
     ref.watch(
         localUserSettingsProvider.select((value) => value is OnVideoUpdate));
 
-    final recWid = Padding(
-      padding: ref.read(localUserSettingsProvider.notifier).isVideoEnabled
-          ? EdgeInsets.zero
-          : EdgeInsets.symmetric(horizontal: hspace4.width!),
-      child: Row(
-        children: [
-          if (recordingState == DyteRecordingState.recording) ...[
-            Icon(
-              DyteIcons.recording,
-              size: context.adjust(10),
-              color: theme.colorScheme.error,
+    final recWid = (recordingState == DyteRecordingState.recording)
+        ? Container(
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            padding: ref.read(localUserSettingsProvider.notifier).isVideoEnabled
+                ? EdgeInsets.zero
+                : EdgeInsets.symmetric(horizontal: hspace4.width!),
+            child: Row(
+              children: [
+                if (recordingState == DyteRecordingState.recording) ...[
+                  Icon(
+                    DyteIcons.recording,
+                    size: context.adjust(10),
+                    color: theme.colorScheme.error,
+                  ),
+                  SizedBox(width: context.adjust(5)),
+                  DyteText(
+                    DyteStrings.rec,
+                    dyteTextStyle: theme.textTheme.bodyMedium!
+                        .copyWith(color: theme.colorScheme.error),
+                  ),
+                ],
+              ],
             ),
-            SizedBox(width: context.adjust(5)),
-            DyteText(
-              DyteStrings.rec,
-              dyteTextStyle: theme.textTheme.bodyMedium!
-                  .copyWith(color: theme.colorScheme.error),
-            ),
-          ],
-        ],
-      ),
-    );
+          )
+        : SizedBox.shrink();
 
     return recWid;
   }

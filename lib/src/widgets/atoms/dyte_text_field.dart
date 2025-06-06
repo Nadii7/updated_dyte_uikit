@@ -20,7 +20,7 @@ class DyteTextField extends StatelessWidget {
   final Function(String)? onChanged;
 
   const DyteTextField({
-    Key? key,
+    super.key,
     required this.controller,
     this.prefixText,
     this.hintText,
@@ -35,7 +35,7 @@ class DyteTextField extends StatelessWidget {
     this.width = 40,
     this.height = 80,
     this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -44,26 +44,27 @@ class DyteTextField extends StatelessWidget {
       width: width,
       height: height,
       child: TextFormField(
-        maxLines: maxLines,
-        validator: validator,
-        style: theme.textTheme.bodyMedium,
         enabled: enabled,
-        cursorColor: brandColorSwatch.shade500,
-        keyboardType: inputType,
+        maxLines: maxLines,
         onChanged: onChanged,
+        validator: validator,
+        controller: controller,
+        keyboardType: inputType,
+        style: theme.textTheme.bodyMedium,
+        cursorColor: brandColorSwatch.shade500,
         textInputAction: textInputAction ?? TextInputAction.next,
+        onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
         decoration: InputDecoration(
           fillColor: fillColor ?? backgroundColorSwatch.shade900,
           filled: true,
           hintText: hintText,
+          hintStyle: hintStyle ?? theme.textTheme.bodyMedium,
           border: border ??
               OutlineInputBorder(
                   borderSide: BorderSide.none,
                   borderRadius: BorderRadius.all(
                       Radius.circular(borderToken.getRadius(BorderSize.one)))),
-          hintStyle: hintStyle ?? theme.textTheme.bodyMedium,
         ),
-        controller: controller,
       ),
     );
   }

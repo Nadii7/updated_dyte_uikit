@@ -40,7 +40,9 @@ class _ChatsViewerWidgetState extends ConsumerState<ChatsViewerWidget> {
     return messages.isEmpty
         ? const EmptyChatWidget()
         : ListView.builder(
+            itemCount: messages.length,
             controller: _scrollController,
+            physics: const AlwaysScrollableScrollPhysics(),
             itemBuilder: (context, index) {
               final msgType = messages[index].type;
               switch (msgType) {
@@ -59,7 +61,6 @@ class _ChatsViewerWidgetState extends ConsumerState<ChatsViewerWidget> {
                   return Container();
               }
             },
-            itemCount: messages.length,
           );
   }
 

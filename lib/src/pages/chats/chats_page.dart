@@ -25,7 +25,6 @@ class ChatsPage extends StatelessWidget {
         title: DyteText(DyteStrings.chat),
         leadingIcon: const Icon(DyteIcons.dismiss),
         onPressed: () => DyteRouter.of(context).pop(),
-        backgroundColor: globalDesignToken.colorToken.backgroundColor.shade1000,
       ),
     );
   }
