@@ -1,7 +1,7 @@
-import 'package:dyte_uikit/src/di/di.dart';
-import 'package:dyte_core/dyte_core.dart';
-import 'package:dyte_uikit/src/tokens/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:dyte_core/dyte_core.dart';
+import 'package:dyte_uikit/src/di/di.dart';
+import 'package:dyte_uikit/src/tokens/theme.dart';
 
 class DyteTextField extends StatelessWidget {
   final String? hintText;
@@ -55,15 +55,20 @@ class DyteTextField extends StatelessWidget {
         textInputAction: textInputAction ?? TextInputAction.next,
         onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
         decoration: InputDecoration(
-          fillColor: fillColor ?? backgroundColorSwatch.shade900,
           filled: true,
+          isDense: true,
           hintText: hintText,
           hintStyle: hintStyle ?? theme.textTheme.bodyMedium,
+          fillColor: fillColor ?? backgroundColorSwatch.shade900,
           border: border ??
               OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.all(
-                      Radius.circular(borderToken.getRadius(BorderSize.one)))),
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(
+                    borderToken.getRadius(BorderSize.one),
+                  ),
+                ),
+              ),
         ),
       ),
     );

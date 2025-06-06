@@ -9,6 +9,8 @@ import 'package:dyte_uikit/src/widgets/atoms/dyte_text_field.dart';
 import 'package:dyte_uikit/src/widgets/atoms/dyte_icon_button.dart';
 import 'package:dyte_uikit/src/pages/chats/widgets/send_other_formats.dart';
 
+import '../../../../dyte_uikit.dart';
+
 class MessageSender extends StatelessWidget {
   MessageSender({super.key});
 
@@ -20,9 +22,7 @@ class MessageSender extends StatelessWidget {
     return Container(
       width: context.width,
       padding: const EdgeInsets.all(10),
-      color: theme.colorScheme.primaryContainer,
       child: SafeArea(
-        bottom: MediaQuery.of(context).viewInsets.bottom == 0,
         child: Row(
           children: [
             if (dyteMobileClient.permissions.chat.canSendFiles) ...[
@@ -44,13 +44,22 @@ class MessageSender extends StatelessWidget {
                 child: DyteTextField(
                   width: null,
                   maxLines: null,
-                  border: InputBorder.none,
-                  height: context.adjust(48),
+                  height: context.adjust(50),
                   controller: _messageController,
                   hintText: '${DyteStrings.message}...',
                   hintStyle: theme.textTheme.titleMedium,
                   textInputAction: TextInputAction.newline,
-                  fillColor: theme.colorScheme.primaryContainer,
+                  fillColor:
+                      globalDesignToken.colorToken.backgroundColor.shade1000,
+                  border: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: theme.colorScheme.secondaryContainer),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(
+                        borderToken.getRadius(BorderSize.one),
+                      ),
+                    ),
+                  ),
                 ),
               ),
               DyteIconButton(
@@ -62,9 +71,10 @@ class MessageSender extends StatelessWidget {
                 onPressed: () {
                   if (_messageController.text.trim().isEmpty) {
                     showSnackbarWidget(
-                        context,
-                        getTextContentForSnackbar(
-                            'Message cannot be empty', context));
+                      context,
+                      getTextContentForSnackbar(
+                          'Message cannot be empty', context),
+                    );
                     return;
                   }
                   dyteMobileClient.chat

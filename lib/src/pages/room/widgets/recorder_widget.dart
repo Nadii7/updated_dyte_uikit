@@ -22,7 +22,7 @@ class RecorderWidget extends ConsumerWidget {
 
     final recWid = (recordingState == DyteRecordingState.recording)
         ? Container(
-            margin: EdgeInsets.symmetric(horizontal: 5),
+            margin: EdgeInsets.symmetric(horizontal: 10),
             child: Row(
               children: [
                 if (recordingState == DyteRecordingState.recording) ...[
