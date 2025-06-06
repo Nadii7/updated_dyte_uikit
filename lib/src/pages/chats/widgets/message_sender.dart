@@ -42,31 +42,30 @@ class MessageSender extends StatelessWidget {
               ),
             ],
             if (dyteMobileClient.permissions.chat.canSendText) ...[
+              SizedBox(width: context.adjust(5)),
               Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: DyteTextField(
-                    width: null,
-                    maxLines: null,
-                    height: context.adjust(48),
-                    controller: _messageController,
-                    hintText: '${DyteStrings.message}...',
-                    hintStyle: theme.textTheme.titleMedium,
-                    textInputAction: TextInputAction.newline,
-                    fillColor:
-                        globalDesignToken.colorToken.backgroundColor.shade1000,
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: theme.colorScheme.secondaryContainer),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(
-                          borderToken.getRadius(BorderSize.one),
-                        ),
+                child: DyteTextField(
+                  width: null,
+                  maxLines: null,
+                  height: context.adjust(48),
+                  controller: _messageController,
+                  hintText: '${DyteStrings.message}...',
+                  hintStyle: theme.textTheme.titleMedium,
+                  textInputAction: TextInputAction.newline,
+                  fillColor:
+                      globalDesignToken.colorToken.backgroundColor.shade1000,
+                  border: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: theme.colorScheme.secondaryContainer),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(
+                        borderToken.getRadius(BorderSize.one),
                       ),
                     ),
                   ),
                 ),
               ),
+              SizedBox(width: context.adjust(5)),
               DyteIconButton(
                 backgroundColor: theme.colorScheme.primary,
                 icon: Icon(
