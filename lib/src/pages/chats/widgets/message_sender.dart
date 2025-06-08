@@ -1,4 +1,3 @@
-import '../../../../dyte_uikit.dart';
 import 'package:flutter/material.dart';
 import 'package:dyte_uikit/src/di/di.dart';
 import 'package:dyte_icons/dyte_icons.dart';
@@ -55,15 +54,6 @@ class MessageSender extends StatelessWidget {
                     textInputAction: TextInputAction.newline,
                     fillColor:
                         globalDesignToken.colorToken.backgroundColor.shade1000,
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: theme.colorScheme.secondaryContainer),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(
-                          borderToken.getRadius(BorderSize.one),
-                        ),
-                      ),
-                    ),
                   ),
                 ),
                 SizedBox(width: context.adjust(10)),

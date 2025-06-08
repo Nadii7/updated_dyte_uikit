@@ -52,6 +52,7 @@ class DyteTextField extends StatelessWidget {
         keyboardType: inputType,
         style: theme.textTheme.bodyMedium,
         cursorColor: brandColorSwatch.shade500,
+        strutStyle: const StrutStyle(forceStrutHeight: true),
         textInputAction: textInputAction ?? TextInputAction.next,
         onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
         decoration: InputDecoration(
@@ -61,6 +62,7 @@ class DyteTextField extends StatelessWidget {
           hintText: hintText,
           hintStyle: hintStyle ?? theme.textTheme.bodyMedium,
           fillColor: fillColor ?? backgroundColorSwatch.shade900,
+          
           border: border ??
               OutlineInputBorder(
                 borderSide: BorderSide.none,

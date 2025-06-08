@@ -72,6 +72,7 @@ class _DyteGCControlBarState extends ConsumerState<_DyteGCControlBar> {
   late AudioNotifier _audioNotifier;
   late VideoNotifier _videoNotifier;
   late DyteDataEventsListener stagePerms;
+
   @override
   void initState() {
     _audioNotifier = AudioNotifier(dyteMobileClient.localUser);
@@ -82,6 +83,9 @@ class _DyteGCControlBarState extends ConsumerState<_DyteGCControlBar> {
     dyteMobileClient.addParticipantEventsListener(_videoNotifier);
     super.initState();
   }
+ 
+  
+
 
   @override
   Widget build(BuildContext context) {

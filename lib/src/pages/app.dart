@@ -9,6 +9,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class DyteApp extends ConsumerStatefulWidget {
+  final bool canExit;
+  final Function()? onExit;
   final Function()? onClose;
   final String remainingTime;
   final DyteMeetingInfo dyteMeetingInfo;
@@ -16,6 +18,8 @@ class DyteApp extends ConsumerStatefulWidget {
   const DyteApp(
     this.dyteMeetingInfo, {
     super.key,
+    required this.onExit,
+    required this.canExit,
     required this.onClose,
     required this.remainingTime,
   });
@@ -31,6 +35,24 @@ class _DyteAppState extends ConsumerState<DyteApp> {
     DyteListenerManager.init(ref);
     if (mounted) {
       DyteListenerManager.instance.registerDyteListeners();
+    }
+  }
+
+   @override
+  void didUpdateWidget(DyteApp oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    // Check if canExit changed from false to true
+    if (!oldWidget.canExit && widget.canExit) {
+      _handleExit();
+    }
+  }
+
+  void _handleExit() {
+    if (widget.onExit != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        widget.onExit!();
+      });
     }
   }
 

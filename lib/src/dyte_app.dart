@@ -34,6 +34,8 @@ class DyteUIKitBuilder {
     String? arbPath,
     DyteMobileClient? client,
     bool skipSetupPage = false,
+    required bool canExit,
+    required Function()? onExit,
     required Function()? onClose,
     required String remainingTime,
     required DyteUIKitInfo uiKitInfo,
@@ -46,6 +48,8 @@ class DyteUIKitBuilder {
     }
     return DyteUiKit(
       uiKitInfo,
+      onExit: onExit,
+      canExit: canExit,
       onClose: onClose,
       remainingTime: remainingTime,
       skipSetupPage: skipSetupPage,
@@ -58,7 +62,9 @@ class DyteUIKitBuilder {
 }
 
 class DyteUiKit extends StatelessWidget {
+  final bool canExit;
   final bool skipSetupPage;
+  final Function()? onExit;
   final Function()? onClose;
   final String remainingTime;
   final DyteUIKitInfo _uiKitInfo;
@@ -66,6 +72,8 @@ class DyteUiKit extends StatelessWidget {
   const DyteUiKit(
     this._uiKitInfo, {
     super.key,
+    required this.onExit,
+    required this.canExit,
     required this.onClose,
     this.skipSetupPage = false,
     required this.remainingTime,
@@ -82,6 +90,8 @@ class DyteUiKit extends StatelessWidget {
   Widget _app() {
     dyteConfig.skipSetupScreen = skipSetupPage;
     return DyteApp(
+      onExit: onExit,
+      canExit: canExit,
       onClose: onClose,
       uikitInfo.meetingInfo,
       remainingTime: remainingTime,
