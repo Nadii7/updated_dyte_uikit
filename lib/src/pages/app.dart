@@ -38,7 +38,7 @@ class _DyteAppState extends ConsumerState<DyteApp> {
     }
   }
 
-   @override
+  @override
   void didUpdateWidget(DyteApp oldWidget) {
     super.didUpdateWidget(oldWidget);
 
@@ -51,6 +51,8 @@ class _DyteAppState extends ConsumerState<DyteApp> {
   void _handleExit() {
     if (widget.onExit != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.of(context, rootNavigator: true).pop();
+        dyteMobileClient.leaveRoom();
         widget.onExit!();
       });
     }
