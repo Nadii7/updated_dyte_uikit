@@ -51,9 +51,7 @@ class _DyteAppState extends ConsumerState<DyteApp> {
   void _handleExit() {
     if (widget.onExit != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.of(context, rootNavigator: true).pop();
         dyteMobileClient.leaveRoom();
-        DyteDependencyHandler.tearDownDependencies();
         widget.onExit!();
       });
     }
