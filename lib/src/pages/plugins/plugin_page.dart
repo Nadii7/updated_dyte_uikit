@@ -13,12 +13,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DytePluginsScreen extends ConsumerWidget {
-  const DytePluginsScreen({super.key});
+  final String remainingTime;
+  const DytePluginsScreen({
+    super.key,
+    required this.remainingTime,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: DyteAppBar(
+        remainingTime: remainingTime,
         title: DyteText(DyteStrings.plugins),
         hasLeading: false,
         actions: [

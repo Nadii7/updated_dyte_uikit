@@ -20,10 +20,11 @@ import 'app.dart';
 
 class RoomRoutePage extends ConsumerStatefulWidget {
   final Function()? onClose;
-
+  final String remainingTime;
   const RoomRoutePage({
     super.key,
     required this.onClose,
+    required this.remainingTime,
   });
 
   @override
@@ -88,7 +89,10 @@ class _RoomRoutePageState extends ConsumerState<RoomRoutePage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => DyteSetupScreen(
-                            selectedAudioDevice, selectedVideoDevice),
+                          selectedAudioDevice,
+                          selectedVideoDevice,
+                          remainingTime: widget.remainingTime,
+                        ),
                         settings: RouteSettings(name: RouteNames.setup),
                       ),
                     );
@@ -122,6 +126,7 @@ class _RoomRoutePageState extends ConsumerState<RoomRoutePage> {
                 MaterialPageRoute(
                   builder: (context) => DyteGCMeetingRoom(
                     onClose: widget.onClose,
+                    remainingTime: widget.remainingTime,
                   ),
                   settings: RouteSettings(name: RouteNames.meeting),
                 ),
@@ -132,9 +137,11 @@ class _RoomRoutePageState extends ConsumerState<RoomRoutePage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => DyteWebinarMeetingRoom(
-                      onClose: widget.onClose,
-                      selectedAudioDevice,
-                      selectedVideoDevice),
+                    selectedAudioDevice,
+                    selectedVideoDevice,
+                    onClose: widget.onClose,
+                    remainingTime: widget.remainingTime,
+                  ),
                   settings: RouteSettings(name: RouteNames.meeting),
                 ),
               );
@@ -144,9 +151,11 @@ class _RoomRoutePageState extends ConsumerState<RoomRoutePage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => DyteLivestreamMeetingRoom(
-                      onClose: widget.onClose,
-                      selectedAudioDevice,
-                      selectedVideoDevice),
+                    selectedAudioDevice,
+                    selectedVideoDevice,
+                    onClose: widget.onClose,
+                    remainingTime: widget.remainingTime,
+                  ),
                   settings: RouteSettings(name: RouteNames.meeting),
                 ),
               );

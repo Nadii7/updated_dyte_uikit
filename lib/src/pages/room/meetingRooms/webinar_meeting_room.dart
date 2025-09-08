@@ -14,13 +14,13 @@ import '../grid/dyte_page_view_widget.dart';
 
 class DyteWebinarMeetingRoom extends ConsumerWidget {
   final Function()? onClose;
-
+  final String remainingTime;
   final DyteAudioDevice? selectedAudioDevice;
   final DyteVideoDevice? selectedVideoDevice;
 
   const DyteWebinarMeetingRoom(
       this.selectedAudioDevice, this.selectedVideoDevice,
-      {super.key, required this.onClose});
+      {super.key, required this.onClose, required this.remainingTime});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -84,13 +84,16 @@ class DyteWebinarMeetingRoom extends ConsumerWidget {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        appBar: DyteAppBars.webinar(),
+        appBar: DyteAppBars.webinar(remainingTime: remainingTime),
         body: SafeArea(
           child: ref.watch(tabNotifierProvider).isEmpty
               ? const ActiveParticipantsWidget()
               : const DytePageViewWidget(),
         ),
-        bottomNavigationBar: DyteControlBar.webinar(onClose: onClose),
+        bottomNavigationBar: DyteControlBar.webinar(
+          onClose: onClose,
+          remainingTime: remainingTime,
+        ),
       ),
     );
   }

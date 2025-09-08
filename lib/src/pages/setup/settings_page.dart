@@ -1,3 +1,4 @@
+import '../../routes/router.dart';
 import 'package:flutter/material.dart';
 import 'package:dyte_uikit/src/di/di.dart';
 import 'package:dyte_icons/dyte_icons.dart';
@@ -14,8 +15,10 @@ import 'package:dyte_uikit/src/widgets/molecules/audio_devices_loader.dart';
 import 'package:dyte_uikit/src/widgets/molecules/video_devices_loader.dart';
 
 class SetupSettingsPage extends ConsumerWidget {
+  final String remainingTime;
   SetupSettingsPage({
     super.key,
+    required this.remainingTime,
   });
 
   final mediaPermissions = dyteMobileClient.permissions.media;
@@ -24,14 +27,10 @@ class SetupSettingsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: DyteAppBar(
-        hasLeading: false,
-        actions: [
-          IconButton(
-            onPressed: Navigator.of(context).pop,
-            icon: const Icon(DyteIcons.dismiss),
-          )
-        ],
+        remainingTime: remainingTime,
         title: DyteText(DyteStrings.settings),
+        leadingIcon: const Icon(DyteIcons.dismiss),
+        onPressed: () => DyteRouter.of(context).pop(),
       ),
       body: SafeArea(
         child: Center(

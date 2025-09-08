@@ -1,13 +1,13 @@
-import 'package:dyte_icons/dyte_icons.dart';
-import 'package:dyte_uikit/src/di/di.dart';
-import 'package:dyte_uikit/src/pages/chats/widgets/send_other_formats.dart';
-import 'package:dyte_uikit/src/strings.dart';
-import 'package:dyte_uikit/src/tokens/size/size_util.dart';
-import 'package:dyte_uikit/src/tokens/theme.dart';
-import 'package:dyte_uikit/src/widgets/atoms/dyte_icon_button.dart';
-import 'package:dyte_uikit/src/widgets/atoms/dyte_text_field.dart';
-import 'package:dyte_uikit/src/widgets/molecules/snackbar.dart';
 import 'package:flutter/material.dart';
+import 'package:dyte_uikit/src/di/di.dart';
+import 'package:dyte_icons/dyte_icons.dart';
+import 'package:dyte_uikit/src/strings.dart';
+import 'package:dyte_uikit/src/tokens/theme.dart';
+import 'package:dyte_uikit/src/tokens/size/size_util.dart';
+import 'package:dyte_uikit/src/widgets/molecules/snackbar.dart';
+import 'package:dyte_uikit/src/widgets/atoms/dyte_text_field.dart';
+import 'package:dyte_uikit/src/widgets/atoms/dyte_icon_button.dart';
+import 'package:dyte_uikit/src/pages/chats/widgets/send_other_formats.dart';
 
 class MessageSender extends StatelessWidget {
   MessageSender({super.key});
@@ -18,62 +18,71 @@ class MessageSender extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = AppTheme(globalDesignToken.colorToken).theme;
     return Container(
-      child: dyteMobileClient.permissions.chat.canSend
-          ? Container(
-              width: context.width,
-              padding: const EdgeInsets.all(10),
-              color: theme.colorScheme.primaryContainer,
-              child: Row(children: [
-                if (dyteMobileClient.permissions.chat.canSendFiles) ...[
-                  DyteIconButton(
-                    backgroundColor: theme.colorScheme.secondaryContainer,
-                    icon: Icon(
-                      DyteIcons.add,
-                      color: theme.colorScheme.onSecondary,
-                    ),
-                    onPressed: () async => await showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      builder: (context) => const SendOtherFormats(),
-                    ),
+      width: context.width,
+      padding: EdgeInsets.all(context.adjust(10)),
+      child: SafeArea(
+        child: SizedBox(
+          height: context.adjust(48),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              if (dyteMobileClient.permissions.chat.canSendFiles) ...[
+                DyteIconButton(
+                  height: context.adjust(48),
+                  backgroundColor: theme.colorScheme.secondaryContainer,
+                  icon: Icon(
+                    DyteIcons.add,
+                    color: theme.colorScheme.onSecondary,
                   ),
-                ],
-                if (dyteMobileClient.permissions.chat.canSendText) ...[
-                  Expanded(
-                    child: DyteTextField(
-                      height: null,
-                      width: null,
-                      fillColor: theme.colorScheme.primaryContainer,
-                      controller: _messageController,
-                      hintText: '${DyteStrings.message}...',
-                      hintStyle: theme.textTheme.titleMedium,
-                      border: InputBorder.none,
-                      maxLines: null,
-                    ),
+                  onPressed: () async => await showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (context) => const SendOtherFormats(),
                   ),
-                  DyteIconButton(
-                    backgroundColor: theme.colorScheme.primary,
-                    icon: Icon(
-                      DyteIcons.send,
-                      color: theme.colorScheme.onSecondary,
-                    ),
-                    onPressed: () {
-                      if (_messageController.text.trim().isEmpty) {
-                        showSnackbarWidget(
-                            context,
-                            getTextContentForSnackbar(
-                                'Message cannot be empty', context));
-                        return;
-                      }
-                      dyteMobileClient.chat
-                          .sendTextMessage(_messageController.text.trim());
-                      _messageController.clear();
-                    },
-                  )
-                ]
-              ]),
-            )
-          : const SizedBox.shrink(),
+                ),
+              ],
+              if (dyteMobileClient.permissions.chat.canSendText) ...[
+                SizedBox(width: context.adjust(10)),
+                Expanded(
+                  child: DyteTextField(
+                    maxLines: null,
+                    height: context.adjust(48),
+                    controller: _messageController,
+                    hintText: '${DyteStrings.message}...',
+                    hintStyle: theme.textTheme.titleMedium,
+                    textInputAction: TextInputAction.newline,
+                    fillColor:
+                        globalDesignToken.colorToken.backgroundColor.shade1000,
+                  ),
+                ),
+                SizedBox(width: context.adjust(10)),
+                DyteIconButton(
+                  height: context.adjust(48),
+                  backgroundColor: theme.colorScheme.primary,
+                  icon: Icon(
+                    DyteIcons.send,
+                    color: theme.colorScheme.onSecondary,
+                  ),
+                  onPressed: () {
+                    if (_messageController.text.trim().isEmpty) {
+                      showSnackbarWidget(
+                        context,
+                        getTextContentForSnackbar(
+                            'Message cannot be empty', context),
+                      );
+                      return;
+                    }
+                    dyteMobileClient.chat
+                        .sendTextMessage(_messageController.text.trim());
+                    _messageController.clear();
+                  },
+                )
+              ]
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

@@ -14,27 +14,39 @@ import '../stage_req_button_widget.dart';
 class DyteControlBar {
   DyteControlBar._();
 
-  static Widget gc(
-          {DyteDesignTokens? designToken, required Function()? onClose}) =>
+  static Widget gc({
+    DyteDesignTokens? designToken,
+    required Function()? onClose,
+    required String remainingTime,
+  }) =>
       SafeArea(
         child: _DyteGCControlBar(
           onClose: onClose,
+          remainingTime: remainingTime,
           individualDesignToken: designToken,
         ),
       );
-  static Widget webinar(
-          {DyteDesignTokens? designToken, required Function()? onClose}) =>
+  static Widget webinar({
+    DyteDesignTokens? designToken,
+    required Function()? onClose,
+    required String remainingTime,
+  }) =>
       SafeArea(
         child: _DyteStageControlBar(
           onClose: onClose,
+          remainingTime: remainingTime,
           individualDesignToken: designToken,
         ),
       );
-  static Widget livestream(
-          {DyteDesignTokens? designToken, required Function()? onClose}) =>
+  static Widget livestream({
+    DyteDesignTokens? designToken,
+    required Function()? onClose,
+    required String remainingTime,
+  }) =>
       SafeArea(
         child: _DyteStageControlBar(
           onClose: onClose,
+          remainingTime: remainingTime,
           individualDesignToken: designToken,
           canLivestream: dyteMobileClient.permissions.livestream.canLivestream,
         ),
@@ -43,12 +55,13 @@ class DyteControlBar {
 
 class _DyteGCControlBar extends ConsumerStatefulWidget {
   final Function()? onClose;
-
+  final String remainingTime;
   final DyteDesignTokens? individualDesignToken;
 
   const _DyteGCControlBar({
-    this.individualDesignToken,
     required this.onClose,
+    this.individualDesignToken,
+    required this.remainingTime,
   });
 
   @override
@@ -56,9 +69,10 @@ class _DyteGCControlBar extends ConsumerStatefulWidget {
 }
 
 class _DyteGCControlBarState extends ConsumerState<_DyteGCControlBar> {
-  late DyteDataEventsListener stagePerms;
   late AudioNotifier _audioNotifier;
   late VideoNotifier _videoNotifier;
+  late DyteDataEventsListener stagePerms;
+
   @override
   void initState() {
     _audioNotifier = AudioNotifier(dyteMobileClient.localUser);
@@ -69,6 +83,9 @@ class _DyteGCControlBarState extends ConsumerState<_DyteGCControlBar> {
     dyteMobileClient.addParticipantEventsListener(_videoNotifier);
     super.initState();
   }
+ 
+  
+
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +117,7 @@ class _DyteGCControlBarState extends ConsumerState<_DyteGCControlBar> {
           DyteScreenshareWidget(
             dyteMobileClient: dyteMobileClient,
           ),
-          const MoreButtonWidget(),
+          MoreButtonWidget(remainingTime: widget.remainingTime),
           DyteLeaveButton(
             dyteMobileClient: dyteMobileClient,
             onClose: widget.onClose,
@@ -140,6 +157,7 @@ class _OnStageToggleWidgetState extends ConsumerState<OnStageToggleWidget> {
 class _DyteStageControlBar extends ConsumerStatefulWidget {
   final bool canLivestream;
   final Function()? onClose;
+  final String remainingTime;
   final DyteDesignTokens designToken;
   final DyteDesignTokens? individualDesignToken;
 
@@ -147,6 +165,7 @@ class _DyteStageControlBar extends ConsumerStatefulWidget {
     required this.onClose,
     this.individualDesignToken,
     this.canLivestream = false,
+    required this.remainingTime,
   }) : designToken = individualDesignToken ?? globalDesignToken;
   @override
   ConsumerState<_DyteStageControlBar> createState() =>
@@ -199,6 +218,7 @@ class _DyteStageControlBarState extends ConsumerState<_DyteStageControlBar> {
             ),
           ),
           MoreButtonWidget(
+            remainingTime: widget.remainingTime,
             canLivestream: widget.canLivestream,
           ),
           DyteLeaveButton(

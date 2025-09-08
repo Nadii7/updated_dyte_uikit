@@ -24,7 +24,11 @@ import '../../utils/generate_key.dart';
 import '../../widgets/atoms/dyte_button.dart';
 
 class DyteParticipantsPage extends ConsumerWidget {
-  const DyteParticipantsPage({super.key});
+  final String remainingTime;
+  const DyteParticipantsPage({
+    super.key,
+    required this.remainingTime,
+  });
 
   List<Widget> _addPresetHostActions(
       DytePermissions permissions, DyteJoinedMeetingParticipant participant) {
@@ -74,6 +78,7 @@ class DyteParticipantsPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: DyteAppBar(
+        remainingTime: remainingTime,
         title: DyteText(DyteStrings.participants),
         leadingIcon: const Icon(DyteIcons.dismiss),
         onPressed: () => DyteRouter.of(context).pop(),
@@ -116,55 +121,53 @@ class DyteParticipantsPage extends ConsumerWidget {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                ...waitlistedParticipants
-                    .map(
-                      (waitlistedParticipant) => DyteListTile(
-                        title: DyteText(
-                          waitlistedParticipant.name,
-                        ),
-                        tileColor: theme.colorScheme.background,
-                        leading: Avatar(
-                          participant: waitlistedParticipant,
-                          height: 32,
-                          width: 32,
-                          textStyle: theme.textTheme.bodyMedium,
-                        ),
-                        trailing: SizedBox(
-                          width: context.width * 0.4,
-                          child: Row(
-                            children: [
-                              const Spacer(),
-                              DyteIconButton(
-                                icon: const Icon(
-                                  DyteIcons.dismiss,
-                                  color: Colors.red,
-                                ),
-                                onPressed: () {
-                                  dyteMobileClient.hostActions
-                                      .rejectWaitlistedParticipant(
-                                          waitlistedParticipant);
-                                },
-                              ),
-                              SizedBox(
-                                width: context.adjust(8),
-                              ),
-                              DyteIconButton(
-                                icon: Icon(
-                                  DyteIcons.checkmark,
-                                  color: Colors.green[800],
-                                ),
-                                onPressed: () {
-                                  dyteMobileClient.hostActions
-                                      .acceptWaitlistedParticipant(
-                                          waitlistedParticipant);
-                                },
-                              ),
-                            ],
+                ...waitlistedParticipants.map(
+                  (waitlistedParticipant) => DyteListTile(
+                    title: DyteText(
+                      waitlistedParticipant.name,
+                    ),
+                    tileColor: theme.colorScheme.surface,
+                    leading: Avatar(
+                      participant: waitlistedParticipant,
+                      height: 32,
+                      width: 32,
+                      textStyle: theme.textTheme.bodyMedium,
+                    ),
+                    trailing: SizedBox(
+                      width: context.width * 0.4,
+                      child: Row(
+                        children: [
+                          const Spacer(),
+                          DyteIconButton(
+                            icon: const Icon(
+                              DyteIcons.dismiss,
+                              color: Colors.red,
+                            ),
+                            onPressed: () {
+                              dyteMobileClient.hostActions
+                                  .rejectWaitlistedParticipant(
+                                      waitlistedParticipant);
+                            },
                           ),
-                        ),
+                          SizedBox(
+                            width: context.adjust(8),
+                          ),
+                          DyteIconButton(
+                            icon: Icon(
+                              DyteIcons.checkmark,
+                              color: Colors.green[800],
+                            ),
+                            onPressed: () {
+                              dyteMobileClient.hostActions
+                                  .acceptWaitlistedParticipant(
+                                      waitlistedParticipant);
+                            },
+                          ),
+                        ],
                       ),
-                    )
-                    .toList(),
+                    ),
+                  ),
+                ),
                 if (waitlistedParticipants.length > 1)
                   DyteTextButton(
                     onPressed: () {
@@ -188,47 +191,44 @@ class DyteParticipantsPage extends ConsumerWidget {
                     ),
                   ),
                 if (ref.watch(stageRequestsNotifier).isNotEmpty)
-                  ...dyteMobileClient.stage.accessRequests
-                      .map(
-                        (requesPar) => DyteListTile(
-                            title: DyteText(
-                              requesPar.name,
-                            ),
-                            tileColor: theme.colorScheme.background,
-                            trailing: SizedBox(
-                              width: context.width * 0.4,
-                              child: Row(
-                                children: [
-                                  const Spacer(),
-                                  DyteIconButton(
-                                    icon: const Icon(
-                                      DyteIcons.dismiss,
-                                      color: Colors.red,
-                                    ),
-                                    onPressed: () {
-                                      dyteMobileClient.stage
-                                          .denyAccess(requesPar);
-                                    },
-                                  ),
-                                  SizedBox(
-                                    width: context.adjust(8),
-                                  ),
-                                  DyteIconButton(
-                                      icon: Icon(
-                                        DyteIcons.checkmark,
-                                        color: Colors.green[800],
-                                      ),
-                                      onPressed: () {
-                                        dyteMobileClient.stage
-                                            .grantAccess(requesPar);
-                                      }),
-                                ],
+                  ...dyteMobileClient.stage.accessRequests.map(
+                    (requesPar) => DyteListTile(
+                        title: DyteText(
+                          requesPar.name,
+                        ),
+                        tileColor: theme.colorScheme.surface,
+                        trailing: SizedBox(
+                          width: context.width * 0.4,
+                          child: Row(
+                            children: [
+                              const Spacer(),
+                              DyteIconButton(
+                                icon: const Icon(
+                                  DyteIcons.dismiss,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () {
+                                  dyteMobileClient.stage.denyAccess(requesPar);
+                                },
                               ),
-                            )
-                            // : Container(),
-                            ),
-                      )
-                      .toList(),
+                              SizedBox(
+                                width: context.adjust(8),
+                              ),
+                              DyteIconButton(
+                                  icon: Icon(
+                                    DyteIcons.checkmark,
+                                    color: Colors.green[800],
+                                  ),
+                                  onPressed: () {
+                                    dyteMobileClient.stage
+                                        .grantAccess(requesPar);
+                                  }),
+                            ],
+                          ),
+                        )
+                        // : Container(),
+                        ),
+                  ),
                 if (dyteMobileClient.stage.accessRequests.isNotEmpty)
                   Row(
                     mainAxisSize: MainAxisSize.max,
@@ -272,7 +272,7 @@ class DyteParticipantsPage extends ConsumerWidget {
                           ? "${participant.name} (${DyteStrings.you})"
                           : participant.name,
                     ),
-                    tileColor: theme.colorScheme.background,
+                    tileColor: theme.colorScheme.surface,
                     leading: Avatar(
                       participant: participant,
                       height: 32,
@@ -293,7 +293,7 @@ class DyteParticipantsPage extends ConsumerWidget {
                               .isNotEmpty)
                             DyteIconButton(
                               icon: const Icon(DyteIcons.more_vertical),
-                              backgroundColor: theme.colorScheme.background,
+                              backgroundColor: theme.colorScheme.surface,
                               onPressed: () => showModalBottomSheet(
                                 context: context,
                                 builder: (ctx) => HostOptionsWidget(
@@ -329,7 +329,7 @@ class DyteParticipantsPage extends ConsumerWidget {
                             ? "${viewer.name} (${DyteStrings.you})"
                             : viewer.name,
                       ),
-                      tileColor: theme.colorScheme.background,
+                      tileColor: theme.colorScheme.surface,
                       leading: Avatar(
                         participant: viewer,
                         height: 32,

@@ -9,10 +9,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class DyteApp extends ConsumerStatefulWidget {
+  final bool canExit;
+  final Function()? onExit;
   final Function()? onClose;
-
+  final String remainingTime;
   final DyteMeetingInfo dyteMeetingInfo;
-  const DyteApp(this.dyteMeetingInfo, {super.key, required this.onClose});
+
+  const DyteApp(
+    this.dyteMeetingInfo, {
+    super.key,
+    required this.onExit,
+    required this.canExit,
+    required this.onClose,
+    required this.remainingTime,
+  });
   @override
   ConsumerState<DyteApp> createState() => _DyteAppState();
 }
@@ -29,6 +39,25 @@ class _DyteAppState extends ConsumerState<DyteApp> {
   }
 
   @override
+  void didUpdateWidget(DyteApp oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    // Check if canExit changed from false to true
+    if (!oldWidget.canExit && widget.canExit) {
+      _handleExit();
+    }
+  }
+
+  void _handleExit() {
+    if (widget.onExit != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        dyteMobileClient.leaveRoom();
+        widget.onExit!();
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final appTheme = AppTheme(globalDesignToken.colorToken);
     return MaterialApp(
@@ -38,7 +67,10 @@ class _DyteAppState extends ConsumerState<DyteApp> {
       ],
       theme: appTheme.theme,
       debugShowCheckedModeBanner: false,
-      home: RoomRoutePage(onClose: widget.onClose),
+      home: RoomRoutePage(
+        onClose: widget.onClose,
+        remainingTime: widget.remainingTime,
+      ),
     );
   }
 
@@ -54,9 +86,7 @@ class LoadingScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return const Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(),
-      ),
+      body: Center(child: CircularProgressIndicator()),
     );
   }
 }

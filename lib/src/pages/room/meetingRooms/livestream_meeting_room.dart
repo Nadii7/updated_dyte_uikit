@@ -1,27 +1,27 @@
-import 'package:dyte_uikit/src/di/di.dart';
-import 'package:dyte_uikit/src/pages/room/grid/active_participants_widget.dart';
-import 'package:dyte_uikit/src/pages/room/grid/dyte_page_view_widget.dart';
-import 'package:dyte_uikit/src/strings.dart';
-import 'package:dyte_uikit/src/tokens/theme.dart';
-import 'package:dyte_uikit/src/widgets/molecules/control_bar/dyte_control_bars.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../../../dyte_uikit.dart';
 import '../../../di/riverpod_di.dart';
-import '../../../widgets/atoms/dyte_app_bar.dart';
+import 'package:flutter/material.dart';
+import 'package:dyte_uikit/src/di/di.dart';
+import 'package:dyte_uikit/src/strings.dart';
 import '../../../widgets/atoms/dyte_text.dart';
+import '../../../widgets/atoms/dyte_app_bar.dart';
+import 'package:dyte_uikit/src/tokens/theme.dart';
 import '../../../widgets/atoms/dyte_text_button.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:dyte_uikit/src/pages/room/grid/dyte_page_view_widget.dart';
+import 'package:dyte_uikit/src/pages/room/grid/active_participants_widget.dart';
+import 'package:dyte_uikit/src/widgets/molecules/control_bar/dyte_control_bars.dart';
 
 class DyteLivestreamMeetingRoom extends ConsumerWidget {
   final Function()? onClose;
+  final String remainingTime;
 
   final DyteAudioDevice? selectedAudioDevice;
   final DyteVideoDevice? selectedVideoDevice;
 
   const DyteLivestreamMeetingRoom(
       this.selectedAudioDevice, this.selectedVideoDevice,
-      {super.key, required this.onClose});
+      {super.key, required this.onClose, required this.remainingTime});
 
   Widget _buildCancelButton(ThemeData theme, BuildContext context) {
     return DyteTextButton(
@@ -94,22 +94,26 @@ class DyteLivestreamMeetingRoom extends ConsumerWidget {
       return PopScope(
         canPop: false,
         child: Scaffold(
-          appBar: DyteAppBars.lvs(),
+          appBar: DyteAppBars.lvs(remainingTime: remainingTime),
           body: const SafeArea(child: ShowLivestreamWidget()),
-          bottomNavigationBar: DyteControlBar.livestream(onClose: onClose),
+          bottomNavigationBar: DyteControlBar.livestream(
+            onClose: onClose,
+            remainingTime: remainingTime,
+          ),
         ),
       );
     } else {
       return PopScope(
         canPop: false,
         child: Scaffold(
-          appBar: DyteAppBars.lvs(),
+          appBar: DyteAppBars.lvs(remainingTime: remainingTime),
           body: SafeArea(
             child: ref.watch(tabNotifierProvider).isEmpty
                 ? const ActiveParticipantsWidget()
                 : const DytePageViewWidget(),
           ),
-          bottomNavigationBar: DyteControlBar.livestream(onClose: onClose),
+          bottomNavigationBar: DyteControlBar.livestream(
+              onClose: onClose, remainingTime: remainingTime),
         ),
       );
     }

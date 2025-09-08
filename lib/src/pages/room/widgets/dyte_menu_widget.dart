@@ -22,9 +22,11 @@ import '../../setup/settings_page.dart';
 
 class DyteMenuWidget extends ConsumerWidget {
   final bool canLivestream;
+  final String remainingTime;
   const DyteMenuWidget({
     super.key,
     this.canLivestream = false,
+    required this.remainingTime,
   });
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -45,21 +47,19 @@ class DyteMenuWidget extends ConsumerWidget {
     final List<Widget> options = [
       if (dyteMobileClient.permissions.poll.canView)
         DyteListTile(
-          leading: const Icon(
-            DyteIcons.poll,
-          ),
           title: DyteText(DyteStrings.polls),
+          leading: const Icon(DyteIcons.poll),
+          trailing: UnreadCountWidget(unreadNotitifers: [unreadPollsNotifier]),
           onTap: () {
             DyteRouter.of(context).pop();
-            DyteRouter.of(context)
-                .push(const DytePollsScreen(), pageName: RouteNames.polls);
+            DyteRouter.of(context).push(
+              pageName: RouteNames.polls,
+              DytePollsScreen(remainingTime: remainingTime),
+            );
             ref.read(unreadPollsNotifier.notifier).markAllAsRead(
                   ref.read(pollsListNotifier).length,
                 );
           },
-          trailing: UnreadCountWidget(
-            unreadNotitifers: [unreadPollsNotifier],
-          ),
         ),
       if (dyteMobileClient.permissions.chat.canSend)
         DyteListTile(
@@ -71,8 +71,8 @@ class DyteMenuWidget extends ConsumerWidget {
                   ref.read(chatListNotifier).length,
                 );
             DyteRouter.of(context).push(
-              const ChatsPage(),
               pageName: RouteNames.chats,
+              ChatsPage(remainingTime: remainingTime),
             );
           },
           trailing: UnreadCountWidget(
@@ -85,8 +85,8 @@ class DyteMenuWidget extends ConsumerWidget {
         onTap: () {
           DyteRouter.of(context).pop();
           DyteRouter.of(context).push(
-            const DyteParticipantsPage(),
             pageName: RouteNames.participants,
+            DyteParticipantsPage(remainingTime: remainingTime),
           );
         },
         trailing: UnreadCountWidget(
@@ -107,7 +107,7 @@ class DyteMenuWidget extends ConsumerWidget {
           onTap: () {
             DyteRouter.of(context).pop();
             DyteRouter.of(context).push(
-              const DytePluginsScreen(),
+              DytePluginsScreen(remainingTime: remainingTime),
             );
           },
         ),
@@ -121,14 +121,14 @@ class DyteMenuWidget extends ConsumerWidget {
         onTap: () {
           DyteRouter.of(context).pop();
           DyteRouter.of(context).push(
-            SetupSettingsPage(),
+            SetupSettingsPage(remainingTime: remainingTime),
             pageName: RouteNames.settings,
           );
         },
       ),
     ];
     return Container(
-      height: options.length * 60,
+      padding: EdgeInsets.symmetric(horizontal: hspace1.width!),
       decoration: BoxDecoration(
         color: theme.colorScheme.primaryContainer,
         borderRadius: BorderRadius.only(
@@ -140,9 +140,11 @@ class DyteMenuWidget extends ConsumerWidget {
           ),
         ),
       ),
-      padding: EdgeInsets.symmetric(horizontal: hspace1.width!),
-      child: ListView(
-        children: options,
+      child: SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: options,
+        ),
       ),
     );
   }

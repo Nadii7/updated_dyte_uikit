@@ -18,10 +18,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DyteSetupScreen extends ConsumerStatefulWidget {
+  final String remainingTime;
   final DyteAudioDevice? selectedAudioDevice;
   final DyteVideoDevice? selectedVideoDevice;
-  const DyteSetupScreen(this.selectedAudioDevice, this.selectedVideoDevice,
-      {super.key});
+  const DyteSetupScreen(
+    this.selectedAudioDevice,
+    this.selectedVideoDevice, {
+    super.key,
+    required this.remainingTime,
+  });
 
   @override
   ConsumerState<DyteSetupScreen> createState() => _SetupPageState();
@@ -55,7 +60,7 @@ class _SetupPageState extends ConsumerState<DyteSetupScreen> {
         ref.watch(editNameProvider.select((name) => name.isEmpty));
     final theme = AppTheme(globalDesignToken.colorToken).theme;
 
-    return  PopScope(
+    return PopScope(
       canPop: false,
       child: Scaffold(
         appBar: AppBar(
@@ -81,6 +86,7 @@ class _SetupPageState extends ConsumerState<DyteSetupScreen> {
                             ),
                             vspace2,
                             SetupScreenControlButtons(
+                              remainingTime: widget.remainingTime,
                               selectedAudioDevice: widget.selectedAudioDevice,
                               selectedVideoDevice: widget.selectedVideoDevice,
                             ),
@@ -128,6 +134,7 @@ class _SetupPageState extends ConsumerState<DyteSetupScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SetupScreenControlButtons(
+                                  remainingTime: widget.remainingTime,
                                   selectedAudioDevice:
                                       widget.selectedAudioDevice,
                                   selectedVideoDevice:
@@ -176,11 +183,16 @@ class _SetupPageState extends ConsumerState<DyteSetupScreen> {
 }
 
 class SetupScreenControlButtons extends StatelessWidget {
+  final String remainingTime;
   final DyteAudioDevice? selectedAudioDevice;
   final DyteVideoDevice? selectedVideoDevice;
 
-  const SetupScreenControlButtons(
-      {this.selectedAudioDevice, this.selectedVideoDevice, super.key});
+  const SetupScreenControlButtons({
+    super.key,
+    this.selectedAudioDevice,
+    this.selectedVideoDevice,
+    required this.remainingTime,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -251,7 +263,8 @@ class SetupScreenControlButtons extends StatelessWidget {
             selectedVideoDevice != null)
           DyteIconButton(
             onPressed: () {
-              DyteRouter.of(context).push(SetupSettingsPage());
+              DyteRouter.of(context)
+                  .push(SetupSettingsPage(remainingTime: remainingTime));
             },
             icon: Icon(
               DyteIcons.settings,

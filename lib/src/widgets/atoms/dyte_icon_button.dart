@@ -31,8 +31,8 @@ class DyteIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height ?? context.adjust(48),
       width: width ?? context.adjust(48),
+      height: height ?? context.adjust(48),
       decoration: BoxDecoration(
         color: backgroundColor ?? backgroundColorSwatch.shade900,
         borderRadius: BorderRadius.circular(
@@ -44,21 +44,21 @@ class DyteIconButton extends StatelessWidget {
         children: [
           if (isDisabled)
             const Positioned(
-              right: 4,
               top: 4,
+              right: 4,
               child: Icon(
+                size: 14,
                 DyteIcons.warning,
                 color: StatusColor.warning,
-                size: 14,
               ),
             ),
           IconButton(
-            iconSize: iconSize ?? 24,
+            icon: icon,
             splashRadius: 1,
+            iconSize: iconSize ?? 24,
+            padding: padding?? EdgeInsets.zero,
             onPressed: isDisabled ? null : onPressed,
             disabledColor: backgroundColorSwatch.shade700,
-            icon: icon,
-            padding: padding,
           ),
         ],
       ),
